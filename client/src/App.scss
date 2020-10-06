@@ -1,0 +1,636 @@
+:root {
+  --color-0: #fff;
+  --color-1: #15202b;
+  --color-2: #192734;
+  --color-3: #164d56;
+  --color-4: #2a91a1;
+  --color-5: #111921;
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: inherit;
+  font-family: "Russo One", sans-serif;
+  letter-spacing: 3px;
+}
+
+p {
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.app {
+  background-color: var(--color-1);
+  color: var(--color-0);
+  font-family: "Roboto Mono", monospace;
+}
+
+//* Header styles start
+#header {
+  background-color: var(--color-1);
+  height: 12vh;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 1.3rem;
+}
+
+.navbar {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  margin: auto;
+  width: 92%;
+}
+
+.navbar-links {
+  align-items: center;
+  display: flex;
+  list-style-type: none;
+  justify-content: flex-end;
+}
+
+.navbar-item {
+  margin: 20px 0 20px 35px;
+}
+
+@mixin header-btn {
+  cursor: pointer;
+  font-size: 1rem;
+  background-color: var(--color-2);
+  border: 1px solid var(--color-3);
+  border-radius: 5px;
+  color: var(--color-0);
+  padding: 10px 20px;
+}
+
+.logout-button {
+  @include header-btn();
+}
+
+.navbar-button {
+  @include header-btn();
+  display: none;
+}
+//* Header styles end
+
+.container {
+  margin: auto;
+  text-align: center;
+  width: 88%;
+}
+
+//* Title styles start
+#title {
+  border-bottom: 1px solid var(--color-3);
+  height: 600px;
+  .container {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+}
+
+.terminal {
+  height: 90%;
+}
+
+.terminal-top {
+  align-items: center;
+  border: {
+    top: 1px solid var(--color-3);
+    left: 1px solid var(--color-3);
+    right: 1px solid var(--color-3);
+    radius: 5px 5px 0 0;
+  }
+  display: flex;
+  height: 8%;
+  padding-left: 10px;
+}
+
+@mixin dot($background-color) {
+  background-color: $background-color;
+  border-radius: 50%;
+  height: 15px;
+  margin: 5px;
+  width: 15px;
+}
+
+.dot-1 {
+  @include dot(#fc6058);
+}
+
+.dot-2 {
+  @include dot(#fec02f);
+}
+
+.dot-3 {
+  @include dot(#2aca3e);
+}
+
+.terminal-bottom {
+  align-items: center;
+  background-color: var(--color-2);
+  border: {
+    top: 1px solid var(--color-3);
+    left: 1px solid var(--color-3);
+    right: 1px solid var(--color-3);
+    radius: 0 0 5px 5px;
+  }
+  display: flex;
+  flex-direction: column;
+  height: 92%;
+  justify-content: center;
+}
+
+.title {
+  font-size: 5.625rem;
+  margin: 1rem;
+}
+
+.sub-title {
+  font-size: 1.3rem;
+  margin: 1rem;
+}
+
+.name {
+  color: var(--color-4);
+}
+
+.theme-dots {
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem;
+  width: 200px;
+}
+
+@mixin theme-dot($background-color) {
+  background-color: $background-color;
+  border: 2px solid var(--color-0);
+  cursor: pointer;
+  border-radius: 50%;
+  height: 2rem;
+  transition: transform 0.3s;
+  width: 2rem;
+}
+
+.theme-dot-1 {
+  @include theme-dot(#fff);
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.theme-dot-2 {
+  @include theme-dot(#192734);
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.theme-dot-3 {
+  @include theme-dot(#212121);
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.setting-note {
+  margin: 1rem;
+  width: 60%;
+}
+//* Title styles end
+
+//* About styles start
+#about {
+  background-color: var(--color-2);
+  border-bottom: 1px solid var(--color-3);
+  .container {
+    padding: 5% 7%;
+  }
+}
+
+.about-title {
+  margin: 2rem 0;
+}
+
+.about-me {
+  margin: 2rem 0;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.social-link {
+  margin: 1.5rem;
+}
+
+.skills-title {
+  margin: 2rem 0;
+}
+
+.skills {
+  background-color: var(--color-5);
+  border-radius: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 2rem 0;
+  padding: 5%;
+}
+
+.skill {
+  background-color: var(--color-4);
+  border-radius: 25px/25px;
+  box-shadow: -2px 7px 21px -9px rgba(0, 0, 0, 0.75);
+  font-family: "Roboto Mono", monospace;
+  font-size: 1.1rem;
+  font-weight: bolder;
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+}
+//* About styles end
+
+//* Project-preview styles start
+#projects-preview {
+  background-color: var(--color-1);
+  border-bottom: 1px solid var(--color-3);
+
+  .container {
+    padding: 5% 7%;
+  }
+}
+
+.projects-preview-title {
+  margin: 2rem 0;
+}
+
+.project-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.message {
+  margin: 2rem;
+}
+
+.project-preview {
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 5px;
+  box-shadow: -2px 7px 21px -9px rgba(0, 0, 0, 0.75);
+  cursor: pointer;
+  height: 400px;
+  margin: 1rem;
+  overflow: hidden;
+  max-width: 300px;
+}
+
+.project-preview-img-container {
+  height: 40%;
+  overflow: hidden;
+  width: 100%;
+}
+
+.project-preview-img {
+  height: 100%;
+  width: 100%;
+  transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.project-preview-title,
+.project-preview-detail {
+  color: #000;
+  padding: 1rem 2rem;
+  text-align: left;
+}
+//* Project-preview styles end
+
+//* Contact styles start
+#contact {
+  background-color: var(--color-2);
+  border-bottom: 1px solid var(--color-3);
+  .container {
+    padding: 5% 7%;
+  }
+}
+
+.contact-title {
+  margin: 2rem;
+}
+
+@mixin form {
+  background-color: var(--color-1);
+  border: 1px solid var(--color-3);
+  border-radius: 7px;
+  box-shadow: -2px 7px 21px -9px rgba(0, 0, 0, 0.75);
+  margin: 2rem auto;
+  padding: 6% 8%;
+  max-width: 600px;
+  text-align: left;
+}
+
+.contact-form {
+  @include form();
+}
+
+@mixin inputs {
+  background-color: var(--color-2);
+  border: 1px solid var(--color-3);
+  border-radius: 5px;
+  color: var(--color-0);
+  font-size: 1rem;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.contact-input-name {
+  @include inputs();
+}
+.contact-input-subject {
+  @include inputs();
+}
+.contact-input-email {
+  @include inputs();
+}
+.contact-message {
+  @include inputs();
+  resize: vertical;
+}
+
+@mixin btn {
+  cursor: pointer;
+  font-family: "Roboto Mono", monospace;
+  font-size: 1rem;
+  background-color: var(--color-4);
+  border: 1px solid var(--color-3);
+  border-radius: 5px;
+  color: var(--color-0);
+  padding: 10px 20px;
+  width: 100%;
+}
+
+.contact-btn {
+  @include btn();
+}
+//* Contact styles end
+
+//* Projects styles start
+#projects {
+  background-color: var(--color-2);
+  border-bottom: 1px solid var(--color-3);
+  min-height: 80vh;
+  .container {
+    padding: 5% 7%;
+  }
+}
+//* Projects styles end
+
+//* Project-detail styles start
+#project-detail {
+  background-color: var(--color-2);
+  border-bottom: 1px solid var(--color-3);
+  .container {
+    padding: 5% 7%;
+  }
+}
+
+.project-title {
+  margin: 1rem 0;
+}
+
+.project-img {
+  margin: 1rem 0;
+  max-width: 90%;
+}
+
+.project-detail {
+  margin: 2rem 0;
+}
+//* Project-detail styles end
+
+//* Login styles start
+#login {
+  background-color: var(--color-2);
+  border-bottom: 1px solid var(--color-3);
+  .container {
+    padding: 5% 7%;
+  }
+}
+
+.alert-box {
+  background-color: #dc3545;
+  border-radius: 5px;
+  box-shadow: -2px 7px 21px -9px rgba(0, 0, 0, 0.75);
+  margin: 1.5rem auto;
+  max-width: 600px;
+  padding: 2% 5%;
+}
+
+.login-form {
+  @include form();
+}
+
+.login-input-email,
+.login-input-password {
+  @include inputs();
+}
+
+.login-btn {
+  @include btn();
+}
+//* Login styles end
+
+//* Dashboard styles start
+#dashboard {
+  background-color: var(--color-2);
+  border-bottom: 1px solid var(--color-3);
+  min-height: 80vh;
+  .container {
+    padding: 5% 7%;
+  }
+}
+
+.dashboard-add-btn-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.dashboard-projects-list {
+  background-color: var(--color-1);
+  border: 1px solid var(--color-3);
+  box-shadow: -2px 7px 21px -9px rgba(0, 0, 0, 0.75);
+  border-radius: 7px;
+  list-style-type: none;
+  margin: 2rem auto;
+  padding: 1% 2%;
+  .dashboard-project:not(:last-child) {
+    border-bottom: 1px solid var(--color-3);
+  }
+}
+
+.dashboard-project {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard-project-title {
+  cursor: pointer;
+}
+
+.counter {
+  margin: 0 0.5rem;
+}
+
+.dashboard-add-btn {
+  @include btn();
+  width: auto;
+}
+
+.dashboard-delete-btn {
+  @include btn();
+  width: auto;
+  margin: 0.5rem;
+}
+
+.dashboard-update-btn {
+  @include btn();
+  width: auto;
+  margin: 0.5rem;
+}
+//* Dashboard styles end
+
+//* Add-project styles start
+#add-project {
+  background-color: var(--color-2);
+  border-bottom: 1px solid var(--color-3);
+  .container {
+    padding: 5% 7%;
+  }
+}
+
+.project-form {
+  @include form();
+}
+
+.input-project-title {
+  @include inputs();
+}
+.input-project-detail {
+  @include inputs();
+  resize: vertical;
+}
+.input-project-image {
+  @include inputs();
+}
+
+.project-btn {
+  @include btn();
+}
+//* Add-project styles end
+
+//* Update-project styles start
+#update-project {
+  background-color: var(--color-2);
+  border-bottom: 1px solid var(--color-3);
+  .container {
+    padding: 5% 7%;
+  }
+}
+//* Update-project styles end
+
+//* Footer styles start
+#footer {
+  .container {
+    padding: 5% 7%;
+  }
+}
+
+.copyright {
+  font-size: 1.5rem;
+}
+//* Footer styles end
+
+@media (max-width: 750px) {
+  .navbar-links {
+    align-items: flex-start;
+    background-color: var(--color-1);
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 10vh;
+    left: 0;
+    width: 100%;
+  }
+
+  .navbar-button {
+    display: inline;
+  }
+
+  .logo {
+    font-size: 0.9rem;
+    letter-spacing: normal;
+  }
+
+  .navbar-button {
+    font-size: 0.9rem;
+    padding: 10px 15px;
+  }
+
+  .terminal {
+    height: 95%;
+  }
+
+  .title {
+    font-size: 3rem;
+  }
+
+  .sub-title {
+    font-size: 0.9rem;
+  }
+
+  .setting-note {
+    font-size: 0.6rem;
+  }
+
+  .skill {
+    font-size: 0.7rem;
+    margin: 0.3rem;
+  }
+
+  #footer {
+    .container {
+      padding: 15% 2%;
+    }
+  }
+}
