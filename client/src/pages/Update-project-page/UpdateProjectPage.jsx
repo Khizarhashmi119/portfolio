@@ -18,10 +18,10 @@ const UpdateProjectPage = ({ match, projects, loading }) => {
               <ProjectForm type="Edit" project={project} />
             </Fragment>
           ) : (
-            <h2>Loading...</h2>
+            <h2 className="loading-text">Loading...</h2>
           )
         ) : (
-          <h2>Loading...</h2>
+          <h2 className="loading-text">Loading...</h2>
         )}
       </div>
     </section>

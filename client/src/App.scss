@@ -99,6 +99,11 @@ a {
   width: 88%;
 }
 
+.loading-text {
+  font-size: 2rem;
+  margin: 3rem;
+}
+
 //* Title styles start
 #title {
   border-bottom: 1px solid var(--color-3);
@@ -567,6 +572,21 @@ a {
   }
 }
 //* Update-project styles end
+
+//* 404 styles start
+#page-not-found {
+  background-color: var(--color-2);
+  border-bottom: 1px solid var(--color-3);
+  height: 100vh;
+  .container {
+    padding: 5% 7%;
+  }
+}
+
+.page-not-found-title {
+  font-size: 3rem;
+}
+//* 404 styles end
 
 //* Footer styles start
 #footer {

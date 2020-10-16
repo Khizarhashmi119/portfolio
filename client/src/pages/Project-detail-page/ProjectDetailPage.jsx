@@ -18,10 +18,10 @@ const ProjectDetailPage = ({ match, projects, loading }) => {
               <p className="project-detail">{project.detail}</p>
             </div>
           ) : (
-            <h2>Loading...</h2>
+            <h2 className="loading-text">Loading...</h2>
           )
         ) : (
-          <h2>Loading...</h2>
+          <h2 className="loading-text">Loading...</h2>
         )}
       </section>
     </main>

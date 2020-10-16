@@ -13,6 +13,7 @@ import LoginPage from "./pages/Login-page/LoginPage";
 import AddProjectPage from "./pages/Add-project-page/AddProjectPage";
 import UpdateProjectPage from "./pages/Update-project-page/UpdateProjectPage";
 import Footer from "./components/Footer/Footer";
+import PageNotFoundPage from "./pages/Page-not-found-page/PageNotFoundPage";
 import store from "./store/store";
 import { getProjectsAction } from "./store/actions/projectsAction";
 
@@ -51,6 +52,7 @@ const App = () => {
             path="/edit-project/:id"
             component={UpdateProjectPage}
           />
+          <Route component={PageNotFoundPage} />
         </Switch>
         <Footer />
       </div>
