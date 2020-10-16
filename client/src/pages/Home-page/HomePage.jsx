@@ -123,7 +123,7 @@ const HomePage = ({ changeTheme, projects, loading }) => {
               <h3 className="message">No project yet.</h3>
             )
           ) : (
-            <h3>Loading...</h3>
+            <h3 className="loading-text">Loading...</h3>
           )}
         </div>
       </section>
