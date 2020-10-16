@@ -1,3 +1,3 @@
 # My portfolio website.
-### Made with react, node.js and mongoDB
+### Made with react, redux, node.js and mongoDB
 
