@@ -1,20 +1,25 @@
-import React, { useContext } from "react";
+import React from "react";
+import { connect } from "react-redux";
 
-import { ProjectsContext } from "../../contexts/ProjectsContext";
 import ProjectList from "../../components/Project-list/ProjectList";
 
-const ProjectsPage = () => {
-  const { projects } = useContext(ProjectsContext);
+const ProjectsPage = ({ projects, loading }) => {
+  // console.log(projects);
+  // console.log(loading);
 
   return (
     <main>
       <section id="projects">
         <div className="container">
           <h2 className="projects-title">My projects</h2>
-          {projects.length !== 0 ? (
-            <ProjectList projects={projects} />
+          {!loading ? (
+            projects.length !== 0 ? (
+              <ProjectList projects={projects} />
+            ) : (
+              <h3 className="message">No project yet.</h3>
+            )
           ) : (
-            <h3 className="message">No project yet.</h3>
+            <h2 className="loading-text">Loading...</h2>
           )}
         </div>
       </section>
@@ -22,4 +27,15 @@ const ProjectsPage = () => {
   );
 };
 
-export default ProjectsPage;
+const mapStateToProps = (state) => {
+  const {
+    projectsState: { projects, loading },
+  } = state;
+
+  return {
+    projects,
+    loading,
+  };
+};
+
+export default connect(mapStateToProps)(ProjectsPage);

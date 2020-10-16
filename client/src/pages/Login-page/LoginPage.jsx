@@ -1,15 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Redirect, withRouter } from "react-router-dom";
-import axios from "axios";
-import { v4 } from "uuid";
+import { connect } from "react-redux";
 
-import { AuthContext } from "../../contexts/AuthContext";
-import { AlertsContext } from "../../contexts/AlertsContext";
+import { authenticateAdminAction } from "../../store/actions/authActions";
+
 import Alert from "../../components/Alert/Alert";
 
-const LoginPage = ({ history }) => {
-  const { authState, setAuthState } = useContext(AuthContext);
-  const { alerts, setAlerts } = useContext(AlertsContext);
+const LoginPage = ({ history, authState, authenticateAdmin }) => {
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -27,41 +24,11 @@ const LoginPage = ({ history }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    axios
-      .post("/api/auth/login", {
-        ...inputs,
-      })
-      .then((res) => {
-        setAuthState({
-          isLoggedIn: true,
-          ...res.data,
-        });
-
-        localStorage.setItem("token", res.data.token);
-        history.push("/");
-      })
-      .catch((err) => {
-        const errors = err.response.data.errors;
-
-        errors.forEach((error) => {
-          const id = v4();
-          setAlerts((prev) => {
-            return [...prev, { id, msg: error.msg }];
-          });
-
-          setTimeout(
-            () =>
-              setAlerts((prev) => {
-                return prev.filter((alert) => alert.id !== id);
-              }),
-            3000
-          );
-        });
-      });
+    authenticateAdmin(inputs.email, inputs.password);
+    history.push("/dashboard");
   };
 
-  if (authState.isLoggedIn) {
+  if (authState.isAuthenticated) {
     return <Redirect to="/" />;
   }
 
@@ -69,8 +36,8 @@ const LoginPage = ({ history }) => {
     <main>
       <section id="login">
         <div className="container">
-          <Alert alerts={alerts} />
           <h1>Login In</h1>
+          <Alert />
           <form className="login-form" onSubmit={handleSubmit}>
             <label htmlFor="email">Email:</label>
             <input
@@ -100,4 +67,23 @@ const LoginPage = ({ history }) => {
   );
 };
 
-export default withRouter(LoginPage);
+const mapStateToProps = (state) => {
+  const { authState } = state;
+
+  return {
+    authState,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    authenticateAdmin: (email, password) => {
+      dispatch(authenticateAdminAction(email, password));
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(LoginPage));

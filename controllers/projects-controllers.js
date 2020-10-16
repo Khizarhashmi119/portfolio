@@ -46,8 +46,7 @@ const post_project = async (req, res) => {
   try {
     const newProject = new Project(req.body);
     await newProject.save();
-    const projects = await Project.find().sort({ createdAt: -1 });
-    return res.status(200).json(projects);
+    return res.status(200).json(newProject);
   } catch (err) {
     console.error(err);
     return res
@@ -63,8 +62,7 @@ const delete_project = async (req, res) => {
   const { id } = req.params;
   try {
     await Project.findByIdAndDelete(id);
-    const projects = await Project.find().sort({ createdAt: -1 });
-    return res.status(200).json(projects);
+    return res.status(200).json({ msg: "Project successfully deleted." });
   } catch (err) {
     console.error(err);
     return res
@@ -86,9 +84,10 @@ const put_project = async (req, res) => {
   const { id } = req.params;
 
   try {
-    await Project.findByIdAndUpdate(id, req.body);
-    const projects = await Project.find().sort({ createdAt: -1 });
-    return res.status(200).json(projects);
+    const updatedProject = await Project.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    return res.status(200).json(updatedProject);
   } catch (err) {
     console.error(err);
     return res

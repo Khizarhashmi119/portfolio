@@ -1,11 +1,12 @@
 import React, { Fragment } from "react";
+import { connect } from "react-redux";
 
-const Alert = ({ alerts }) => {
+const Alert = ({ alertsState }) => {
   return (
     <Fragment>
-      {alerts !== null &&
-        alerts.length > 0 &&
-        alerts.map((alert) => (
+      {alertsState !== null &&
+        alertsState.length > 0 &&
+        alertsState.map((alert) => (
           <div key={alert.id} className="alert-box">
             {alert.msg}
           </div>
@@ -14,4 +15,11 @@ const Alert = ({ alerts }) => {
   );
 };
 
-export default Alert;
+const mapStateToProps = (state) => {
+  const { alertsState } = state;
+  return {
+    alertsState,
+  };
+};
+
+export default connect(mapStateToProps)(Alert);
