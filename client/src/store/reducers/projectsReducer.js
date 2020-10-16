@@ -23,9 +23,9 @@ const projectsReducer = (state = initState, action) => {
       };
     case "ADD_PROJECT_SUCCESS":
       return {
-        ...state,
         projects: [payload, ...state.projects],
         loading: false,
+        errors: null,
       };
     case "DELETE_PROJECT_SUCCESS":
       return {
@@ -40,9 +40,9 @@ const projectsReducer = (state = initState, action) => {
       const projects = [...state.projects];
       projects[index] = payload;
       return {
-        ...state,
         projects,
         loading: false,
+        errors: null,
       };
     case "GET_PROJECTS_FAIL":
     case "ADD_PROJECT_FAIL":
