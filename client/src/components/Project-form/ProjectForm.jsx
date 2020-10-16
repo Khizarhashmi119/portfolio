@@ -28,7 +28,7 @@ const ProjectForm = ({ history, type, project, addProject, updateProject }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     type === "Edit" ? updateProject(project._id, inputs) : addProject(inputs);
-    history.push("/projects");
+    history.push("/projects"); //TODO: fix bug
   };
 
   return (

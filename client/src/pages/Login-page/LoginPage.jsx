@@ -25,7 +25,7 @@ const LoginPage = ({ history, authState, authenticateAdmin }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     authenticateAdmin(inputs.email, inputs.password);
-    history.push("/dashboard");
+    history.push("/dashboard"); // TODO: fix bug
   };
 
   if (authState.isAuthenticated) {
