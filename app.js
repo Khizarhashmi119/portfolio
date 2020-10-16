@@ -1,8 +1,10 @@
-if (process.env.NODE_ENV !== "production") require("dotenv").config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
-const cors = require("cors");
+const path = require("path");
 
 const projectsRoutes = require("./routes/projects-routes");
 const authRoutes = require("./routes/auth-routes");
@@ -26,7 +28,6 @@ mongoose
   .catch((err) => console.log(err));
 
 //* Middlewares.
-app.use(cors());
 app.use(express.json({ extended: false }));
 app.use(morgan("dev"));
 
@@ -34,6 +35,14 @@ app.use(morgan("dev"));
 app.get("/api/", (req, res) => {
   res.json({ msg: "API is running..." });
 });
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  });
+}
 
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectsRoutes);

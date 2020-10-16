@@ -18,9 +18,12 @@ const SkillList = () => {
       <Skill skill="EJS" />
       <Skill skill="MongoDB" />
       <Skill skill="Mongoose" />
+      <Skill skill="SQL" />
+      <Skill skill="PostgreSQL" />
       <Skill skill="Git" />
       <Skill skill="Heroku" />
       <Skill skill="JWT" />
+      <Skill skill="Passport.js" />
       <Skill skill="WebSockets" />
     </div>
   );

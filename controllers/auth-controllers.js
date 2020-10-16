@@ -10,7 +10,7 @@ const login = async (req, res) => {
   const errs = validationResult(req);
 
   if (!errs.isEmpty()) {
-    return res.status(401).json(errs.array());
+    return res.status(401).json({ errors: errs.array() });
   }
 
   const { email, password } = req.body;

@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
-import axios from "axios";
+import { connect } from "react-redux";
 
-const ProjectForm = ({ history, setProjects, authState, type, project }) => {
+import {
+  addProjectAction,
+  updateProjectAction,
+} from "../../store/actions/projectsAction";
+
+const ProjectForm = ({ history, type, project, addProject, updateProject }) => {
   const [inputs, setInputs] = useState({
     title: type === "Edit" ? project.title : "",
     detail: type === "Edit" ? project.detail : "",
@@ -22,25 +27,8 @@ const ProjectForm = ({ history, setProjects, authState, type, project }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    axios({
-      method: type === "Edit" ? "put" : "post",
-      url:
-        type === "Edit"
-          ? `/api/projects/${project._id}`
-          : `/api/projects/create`,
-      data: {
-        ...inputs,
-      },
-      headers: {
-        "x-auth-token": authState.token,
-      },
-    }).then((res) => {
-      if (res.status === 200) {
-        setProjects(res.data);
-        history.push("/dashboard");
-      }
-    });
+    type === "Edit" ? updateProject(project._id, inputs) : addProject(inputs);
+    history.push("/projects");
   };
 
   return (
@@ -80,4 +68,15 @@ const ProjectForm = ({ history, setProjects, authState, type, project }) => {
   );
 };
 
-export default withRouter(ProjectForm);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addProject: (project) => {
+      dispatch(addProjectAction(project));
+    },
+    updateProject: (id, project) => {
+      dispatch(updateProjectAction(id, project));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(withRouter(ProjectForm));

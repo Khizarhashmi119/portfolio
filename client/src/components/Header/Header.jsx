@@ -1,10 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Link, NavLink, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
-import { AuthContext } from "../../contexts/AuthContext";
-
-const Header = ({ history }) => {
-  const { authState, setAuthState } = useContext(AuthContext);
+const Header = ({ history, authState, logout }) => {
   const [isVisisble, setIsVisible] = useState(false);
 
   const handleClick1 = () => {
@@ -14,8 +12,7 @@ const Header = ({ history }) => {
   };
 
   const handleClick2 = () => {
-    localStorage.removeItem("token");
-    setAuthState({ token: null, isLoggedIn: false });
+    logout();
     history.push("/");
   };
 
@@ -31,7 +28,7 @@ const Header = ({ history }) => {
               /Home
             </NavLink>
           </li>
-          {authState.isLoggedIn && (
+          {authState.isAuthenticated && (
             <li className="navbar-item">
               <NavLink className="navbar-link" to="/dashboard">
                 /Dashboard
@@ -43,7 +40,7 @@ const Header = ({ history }) => {
               /Projects
             </NavLink>
           </li>
-          {authState.isLoggedIn && (
+          {authState.isAuthenticated && (
             <li className="navbar-item">
               <button className="logout-button" onClick={handleClick2}>
                 Logout
@@ -59,4 +56,20 @@ const Header = ({ history }) => {
   );
 };
 
-export default withRouter(Header);
+const mapStateToProps = (state) => {
+  const { authState } = state;
+
+  return {
+    authState,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: () => {
+      dispatch({ type: "LOGOUT" });
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

@@ -1,31 +1,16 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import axios from "axios";
+import { connect } from "react-redux";
 
-const DashboardProject = ({
-  history,
-  setProjects,
-  authState,
-  id,
-  title,
-  index,
-}) => {
+import { deleteProjectAction } from "../../store/actions/projectsAction";
+
+const DashboardProject = ({ history, id, title, index, deleteProject }) => {
   const handleClick1 = () => {
     history.push(`/edit-project/${id}`);
   };
 
   const handleClick2 = () => {
-    axios
-      .delete(`/api/projects/${id}`, {
-        headers: {
-          "x-auth-token": authState.token,
-        },
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          setProjects(res.data);
-        }
-      });
+    deleteProject(id);
   };
 
   const handleClick3 = () => {
@@ -50,4 +35,12 @@ const DashboardProject = ({
   );
 };
 
-export default withRouter(DashboardProject);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteProject: (id) => {
+      dispatch(deleteProjectAction(id));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(withRouter(DashboardProject));

@@ -1,22 +1,15 @@
-import React, { useContext } from "react";
+import React from "react";
 
-import { ProjectsContext } from "../../contexts/ProjectsContext";
-import { AuthContext } from "../../contexts/AuthContext";
 import ProjectForm from "../../components/Project-form/ProjectForm";
+import Alert from "../../components/Alert/Alert";
 
 const AddProjectPage = () => {
-  const { setProjects } = useContext(ProjectsContext);
-  const { authState } = useContext(AuthContext);
-
   return (
     <section id="add-project">
       <div className="container">
         <h1>Add project</h1>
-        <ProjectForm
-          type="Add"
-          setProjects={setProjects}
-          authState={authState}
-        />
+        <Alert />
+        <ProjectForm type="Add" />
       </div>
     </section>
   );

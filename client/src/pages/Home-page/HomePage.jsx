@@ -1,12 +1,11 @@
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-import { ProjectsContext } from "../../contexts/ProjectsContext";
 import SkillList from "../../components/SkillList/SkillList";
 import ProjectList from "../../components/Project-list/ProjectList";
 
-const HomePage = ({ changeTheme }) => {
-  const { projects } = useContext(ProjectsContext);
+const HomePage = ({ changeTheme, projects, loading }) => {
   const [inputs, setInputs] = useState({
     name: "",
     subject: "",
@@ -112,15 +111,19 @@ const HomePage = ({ changeTheme }) => {
       <section id="projects-preview">
         <div className="container">
           <h2 className="projects-preview-title">Some of my past projects.</h2>
-          {projects.length !== 0 ? (
-            <Fragment>
-              <ProjectList projects={projects.slice(0, 3)} />
-              <Link className="projects-link" to="/projects">
-                More projects
-              </Link>
-            </Fragment>
+          {!loading ? (
+            projects.length !== 0 ? (
+              <Fragment>
+                <ProjectList projects={projects.slice(0, 3)} />
+                <Link className="projects-link" to="/projects">
+                  More projects
+                </Link>
+              </Fragment>
+            ) : (
+              <h3 className="message">No project yet.</h3>
+            )
           ) : (
-            <h3 className="message">No project yet.</h3>
+            <h3>Loading...</h3>
           )}
         </div>
       </section>
@@ -176,4 +179,15 @@ const HomePage = ({ changeTheme }) => {
   );
 };
 
-export default HomePage;
+const mapStateToProps = (state) => {
+  const {
+    projectsState: { projects, loading },
+  } = state;
+
+  return {
+    projects,
+    loading,
+  };
+};
+
+export default connect(mapStateToProps)(HomePage);
