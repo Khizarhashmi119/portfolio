@@ -10,7 +10,7 @@ const login = async (req, res) => {
   const errs = validationResult(req);
 
   if (!errs.isEmpty()) {
-    return res.status(401).json({ errors: errs.array() });
+    return res.status(400).json({ errors: errs.array() });
   }
 
   const { email, password } = req.body;
@@ -20,13 +20,13 @@ const login = async (req, res) => {
 
     if (!admin) {
       return res
-        .status(401)
+        .status(400)
         .json({ errors: [{ msg: "Invalid credentials." }] });
     }
 
     if (!admin.checkPassword(password)) {
       return res
-        .status(401)
+        .status(400)
         .json({ errors: [{ msg: "Invalid credentials." }] });
     }
 

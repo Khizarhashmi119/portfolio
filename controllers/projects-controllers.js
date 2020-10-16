@@ -40,7 +40,7 @@ const post_project = async (req, res) => {
   const errs = validationResult(req);
 
   if (!errs.isEmpty()) {
-    return res.status(401).json({ errors: errs.array() });
+    return res.status(400).json({ errors: errs.array() });
   }
 
   try {
@@ -78,7 +78,7 @@ const put_project = async (req, res) => {
   const errs = validationResult(req);
 
   if (!errs.isEmpty()) {
-    return res.status(401).json({ errors: errs.array() });
+    return res.status(400).json({ errors: errs.array() });
   }
 
   const { id } = req.params;
