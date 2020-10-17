@@ -3,7 +3,6 @@ const { check } = require("express-validator");
 
 const {
   get_projects,
-  get_project,
   post_project,
   delete_project,
   put_project,
@@ -13,7 +12,6 @@ const authMiddleware = require("../middlewares/auth-middleware");
 const router = express.Router();
 
 router.get("/", get_projects);
-router.get("/:id", get_project);
 router.post(
   "/create",
   [
@@ -26,7 +24,7 @@ router.post(
   ],
   post_project
 );
-router.delete("/:id", [authMiddleware], delete_project);
+router.delete("/:id", authMiddleware, delete_project);
 router.put(
   "/:id",
   [
