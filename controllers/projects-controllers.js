@@ -17,22 +17,6 @@ const get_projects = async (req, res) => {
   }
 };
 
-//* @route  /api/projects/:id
-//* @desc   Get a project.
-//* @access public
-const get_project = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const project = await Project.findById(id);
-    return res.status(200).json(project);
-  } catch (err) {
-    console.error(err);
-    return res
-      .status(500)
-      .json({ errors: [{ msg: "Internal server error." }] });
-  }
-};
-
 //* @route  /api/projects/create
 //* @desc   Add project.
 //* @access private
@@ -98,7 +82,6 @@ const put_project = async (req, res) => {
 
 module.exports = {
   get_projects,
-  get_project,
   post_project,
   delete_project,
   put_project,
