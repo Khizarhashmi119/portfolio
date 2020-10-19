@@ -12,6 +12,8 @@ const ProjectForm = ({ history, type, project, addProject, updateProject }) => {
     title: type === "Edit" ? project.title : "",
     detail: type === "Edit" ? project.detail : "",
     image: type === "Edit" ? project.image : "",
+    repo: type === "Edit" ? project.repo : "",
+    link: type === "Edit" ? project.link : "",
   });
 
   const handleChange = (e) => {
@@ -59,6 +61,24 @@ const ProjectForm = ({ history, type, project, addProject, updateProject }) => {
         id="project-image"
         name="image"
         value={inputs.image}
+        onChange={handleChange}
+      />
+      <label htmlFor="project-repo">Github repo:</label>
+      <input
+        className="input-project-repo"
+        type="url"
+        id="project-repo"
+        name="repo"
+        value={inputs.repo}
+        onChange={handleChange}
+      />
+      <label htmlFor="project-link">Project link:</label>
+      <input
+        className="input-project-link"
+        type="url"
+        id="project-link"
+        name="link"
+        value={inputs.link}
         onChange={handleChange}
       />
       <button className="project-btn" type="submit">

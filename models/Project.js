@@ -18,6 +18,12 @@ const projectSchema = new Schema(
       type: String,
       required: true,
     },
+    repo: {
+      type: String,
+    },
+    link: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

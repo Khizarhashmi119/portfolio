@@ -437,6 +437,15 @@ a {
   max-width: 90%;
 }
 
+.project-links {
+  margin: 1rem;
+}
+
+.project-link {
+  @include btn();
+  margin: 2rem;
+}
+
 .project-detail {
   margin: 2rem 0;
 }
@@ -550,11 +559,21 @@ a {
 .input-project-title {
   @include inputs();
 }
+
 .input-project-detail {
   @include inputs();
   resize: vertical;
 }
+
 .input-project-image {
+  @include inputs();
+}
+
+.input-project-repo {
+  @include inputs();
+}
+
+.input-project-link {
   @include inputs();
 }
 
