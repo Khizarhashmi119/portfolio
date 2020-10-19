@@ -4,9 +4,6 @@ import { connect } from "react-redux";
 import ProjectList from "../../components/Project-list/ProjectList";
 
 const ProjectsPage = ({ projects, loading }) => {
-  // console.log(projects);
-  // console.log(loading);
-
   return (
     <main>
       <section id="projects">
