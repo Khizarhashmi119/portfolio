@@ -29,6 +29,7 @@ mongoose
 
 //* Middlewares.
 app.use(express.json({ extended: false }));
+app.use(express.static("./client/public"));
 app.use(morgan("dev"));
 
 //* API routes.

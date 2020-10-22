@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import {
@@ -7,16 +6,16 @@ import {
   updateProjectAction,
 } from "../../store/actions/projectsAction";
 
-const ProjectForm = ({ history, type, project, addProject, updateProject }) => {
+const ProjectForm = ({ type, project, addProject, updateProject }) => {
   const [inputs, setInputs] = useState({
     title: type === "Edit" ? project.title : "",
     detail: type === "Edit" ? project.detail : "",
-    image: type === "Edit" ? project.image : "",
     repo: type === "Edit" ? project.repo : "",
     link: type === "Edit" ? project.link : "",
   });
+  const [file, setFile] = useState(null);
 
-  const handleChange = (e) => {
+  const handleChange1 = (e) => {
     const { name, value } = e.target;
 
     setInputs((prev) => {
@@ -27,10 +26,19 @@ const ProjectForm = ({ history, type, project, addProject, updateProject }) => {
     });
   };
 
+  const handleChange2 = (e) => {
+    setFile(e.target.files[0]);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    type === "Edit" ? updateProject(project._id, inputs) : addProject(inputs);
-    history.push("/projects"); //TODO: fix bug
+    const fd = new FormData();
+    fd.append("title", inputs.title);
+    fd.append("detail", inputs.detail);
+    fd.append("repo", inputs.repo);
+    fd.append("link", inputs.link);
+    fd.append("image", file);
+    type === "Edit" ? updateProject(project._id, fd) : addProject(fd);
   };
 
   return (
@@ -42,7 +50,7 @@ const ProjectForm = ({ history, type, project, addProject, updateProject }) => {
         id="project-title"
         name="title"
         value={inputs.title}
-        onChange={handleChange}
+        onChange={handleChange1}
       />
       <label htmlFor="project-detail">Detail:</label>
       <textarea
@@ -52,17 +60,8 @@ const ProjectForm = ({ history, type, project, addProject, updateProject }) => {
         rows="7"
         name="detail"
         value={inputs.detail}
-        onChange={handleChange}
+        onChange={handleChange1}
       ></textarea>
-      <label htmlFor="project-image">Image URL:</label>
-      <input
-        className="input-project-image"
-        type="url"
-        id="project-image"
-        name="image"
-        value={inputs.image}
-        onChange={handleChange}
-      />
       <label htmlFor="project-repo">Github repo:</label>
       <input
         className="input-project-repo"
@@ -70,7 +69,7 @@ const ProjectForm = ({ history, type, project, addProject, updateProject }) => {
         id="project-repo"
         name="repo"
         value={inputs.repo}
-        onChange={handleChange}
+        onChange={handleChange1}
       />
       <label htmlFor="project-link">Project link:</label>
       <input
@@ -79,7 +78,15 @@ const ProjectForm = ({ history, type, project, addProject, updateProject }) => {
         id="project-link"
         name="link"
         value={inputs.link}
-        onChange={handleChange}
+        onChange={handleChange1}
+      />
+      <label htmlFor="project-image">Image:</label>
+      <input
+        className="input-project-image"
+        type="file"
+        id="project-image"
+        name="image"
+        onChange={handleChange2}
       />
       <button className="project-btn" type="submit">
         {type}
@@ -99,4 +106,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(ProjectForm));
+export default connect(null, mapDispatchToProps)(ProjectForm);

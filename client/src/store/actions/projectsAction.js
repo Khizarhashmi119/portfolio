@@ -23,10 +23,25 @@ const addProjectAction = (project) => {
       const response = await axios.post("/api/projects/create", project, {
         headers: {
           "x-auth-token": localStorage.getItem("token"),
+          "content-type": "multipart/form-data",
         },
       });
 
       dispatch({ type: "ADD_PROJECT_SUCCESS", payload: response.data });
+      const alertId = v4();
+
+      dispatch({
+        type: "ADD_ALERT",
+        payload: {
+          id: alertId,
+          msg: "Project added.",
+        },
+      });
+
+      setTimeout(
+        () => dispatch({ type: "DELETE_ALERT", payload: alertId }),
+        5000
+      );
     } catch (err) {
       const errors = err.response.data.errors;
 
@@ -74,10 +89,25 @@ const updateProjectAction = (id, project) => {
       const response = await axios.put(`/api/projects/${id}`, project, {
         headers: {
           "x-auth-token": localStorage.getItem("token"),
+          "content-type": "multipart/form-data",
         },
       });
 
       dispatch({ type: "UPDATE_PROJECT_SUCCESS", payload: response.data });
+      const alertId = v4();
+
+      dispatch({
+        type: "ADD_ALERT",
+        payload: {
+          id: alertId,
+          msg: "Project updated.",
+        },
+      });
+
+      setTimeout(
+        () => dispatch({ type: "DELETE_ALERT", payload: alertId }),
+        5000
+      );
     } catch (err) {
       const errors = err.response.data.errors;
 

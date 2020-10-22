@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Redirect, withRouter } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { authenticateAdminAction } from "../../store/actions/authActions";
 
 import Alert from "../../components/Alert/Alert";
 
-const LoginPage = ({ history, authState, authenticateAdmin }) => {
+const LoginPage = ({ authState, authenticateAdmin }) => {
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -25,7 +25,6 @@ const LoginPage = ({ history, authState, authenticateAdmin }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     authenticateAdmin(inputs.email, inputs.password);
-    history.push("/dashboard"); // TODO: fix bug
   };
 
   if (authState.isAuthenticated) {
@@ -83,7 +82,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(LoginPage));
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
