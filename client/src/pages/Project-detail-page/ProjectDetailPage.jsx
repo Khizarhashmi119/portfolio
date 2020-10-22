@@ -11,7 +11,11 @@ const ProjectDetailPage = ({ match, projects, loading }) => {
           project ? (
             <div className="container">
               <h2 className="project-title">{project.title}</h2>
-              <img className="project-img" src={project.image} alt="Project" />
+              <img
+                className="project-img"
+                src={`/uploads/${project.image}`}
+                alt="Project"
+              />
               <div className="project-links">
                 {project.repo && (
                   <a href={project.repo} className="project-link">

@@ -13,7 +13,7 @@ const authMiddleware = (req, res, next) => {
     next();
   } catch (err) {
     console.log(err);
-    res.status(401).json({ msg: "Authorization failed." });
+    res.status(401).json({ errors: [{ msg: "Authorization failed." }] });
   }
 };
 

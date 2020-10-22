@@ -305,8 +305,6 @@ a {
 
 .project-preview {
   background-color: #fff;
-  border: 1px solid #000;
-  border-radius: 5px;
   box-shadow: -2px 7px 21px -9px rgba(0, 0, 0, 0.75);
   cursor: pointer;
   height: 400px;
@@ -448,6 +446,7 @@ a {
 
 .project-detail {
   margin: 2rem 0;
+  text-align: left;
 }
 //* Project-detail styles end
 
@@ -566,7 +565,9 @@ a {
 }
 
 .input-project-image {
-  @include inputs();
+  font-size: 1rem;
+  margin: 1rem 0;
+  width: 100%;
 }
 
 .input-project-repo {
