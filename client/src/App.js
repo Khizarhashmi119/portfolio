@@ -3,17 +3,17 @@ import { Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 
 import changeTheme from "./utils/changeTheme";
-import Header from "./components/Header/Header";
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import HomePage from "./pages/Home-page/HomePage";
-import ProjectsPage from "./pages/Projects-page/ProjectsPage";
-import ProjectDetailPage from "./pages/Project-detail-page/ProjectDetailPage";
-import DashboardPage from "./pages/Dashboard-page/DashboardPage";
-import LoginPage from "./pages/Login-page/LoginPage";
-import AddProjectPage from "./pages/Add-project-page/AddProjectPage";
-import UpdateProjectPage from "./pages/Update-project-page/UpdateProjectPage";
-import Footer from "./components/Footer/Footer";
-import PageNotFoundPage from "./pages/Page-not-found-page/PageNotFoundPage";
+import Header from "./components/Header";
+import PrivateRoute from "./components/PrivateRoute";
+import HomePage from "./pages/HomePage";
+import ProjectsPage from "./pages/ProjectsPage";
+import ProjectDetailPage from "./pages/ProjectDetailPage";
+import DashboardPage from "./pages/DashboardPage";
+import LoginPage from "./pages/LoginPage";
+import AddProjectPage from "./pages/AddProjectPage";
+import UpdateProjectPage from "./pages/UpdateProjectPage";
+import Footer from "./components/Footer";
+import PageNotFoundPage from "./pages/PageNotFoundPage";
 import store from "./store/store";
 import { getProjectsAction } from "./store/actions/projectsAction";
 

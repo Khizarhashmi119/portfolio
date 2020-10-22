@@ -2,8 +2,8 @@ import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import SkillList from "../../components/SkillList/SkillList";
-import ProjectList from "../../components/Project-list/ProjectList";
+import SkillList from "../components/SkillList";
+import ProjectList from "../components/ProjectList";
 
 const HomePage = ({ changeTheme, projects, loading }) => {
   const [inputs, setInputs] = useState({

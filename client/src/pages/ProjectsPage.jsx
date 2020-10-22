@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import ProjectList from "../../components/Project-list/ProjectList";
+import ProjectList from "../components/ProjectList";
 
 const ProjectsPage = ({ projects, loading }) => {
   return (

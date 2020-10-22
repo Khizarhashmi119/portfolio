@@ -1,7 +1,7 @@
 import React from "react";
 
-import ProjectForm from "../../components/Project-form/ProjectForm";
-import Alert from "../../components/Alert/Alert";
+import ProjectForm from "../components/ProjectForm";
+import Alert from "../components/Alert";
 
 const AddProjectPage = () => {
   return (

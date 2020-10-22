@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 
-import ProjectForm from "../../components/Project-form/ProjectForm";
-import Alert from "../../components/Alert/Alert";
+import ProjectForm from "../components/ProjectForm";
+import Alert from "../components/Alert";
 
 const UpdateProjectPage = ({ match, projects, loading }) => {
   const project = projects.find(({ _id }) => match.params.id === _id);

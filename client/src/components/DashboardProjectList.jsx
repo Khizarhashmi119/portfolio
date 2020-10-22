@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 
-import DashboardProject from "../Dashboard-project/DashboardProject";
+import DashboardProject from "./DashboardProject";
 
 const DashboardProjectList = ({ projects, loading }) => {
   return (

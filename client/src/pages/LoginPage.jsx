@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { authenticateAdminAction } from "../../store/actions/authActions";
+import { authenticateAdminAction } from "../store/actions/authActions";
 
-import Alert from "../../components/Alert/Alert";
+import Alert from "../components/Alert";
 
 const LoginPage = ({ authState, authenticateAdmin }) => {
   const [inputs, setInputs] = useState({

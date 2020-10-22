@@ -1,6 +1,6 @@
 import React from "react";
 
-import DashboardProjectList from "../../components/Dashboard-project-list/DashboardProjectList";
+import DashboardProjectList from "../components/DashboardProjectList";
 
 const DashboardPage = ({ history }) => {
   const handleClick = () => {

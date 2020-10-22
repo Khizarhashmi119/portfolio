@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { deleteProjectAction } from "../../store/actions/projectsAction";
+import { deleteProjectAction } from "../store/actions/projectsAction";
 
 const DashboardProject = ({ history, id, title, index, deleteProject }) => {
   const handleClick1 = () => {
