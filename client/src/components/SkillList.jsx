@@ -1,32 +1,33 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import Skill from "./Skill";
 
-const SkillList = () => {
+const SkillList = ({ loading, skills }) => {
   return (
     <div className="skills">
-      <Skill skill="HTML5" />
-      <Skill skill="CSS3" />
-      <Skill skill="SASS" />
-      <Skill skill="Javascript/ES6+" />
-      <Skill skill="JQuery" />
-      <Skill skill="React" />
-      <Skill skill="Redux" />
-      <Skill skill="Firebase" />
-      <Skill skill="Node.js" />
-      <Skill skill="Express.js" />
-      <Skill skill="EJS" />
-      <Skill skill="MongoDB" />
-      <Skill skill="Mongoose" />
-      <Skill skill="SQL" />
-      <Skill skill="PostgreSQL" />
-      <Skill skill="Git" />
-      <Skill skill="Heroku" />
-      <Skill skill="JWT" />
-      <Skill skill="Passport.js" />
-      <Skill skill="WebSockets" />
+      {!loading ? (
+        skills.length !== 0 ? (
+          skills.map(({ _id, skill }) => <Skill key={_id} skill={skill} />)
+        ) : (
+          <h2 className="message">No skill yet.</h2>
+        )
+      ) : (
+        <h2 className="loading-text">Loading....</h2>
+      )}
     </div>
   );
 };
 
-export default SkillList;
+const mapStateToProps = (state) => {
+  const {
+    skillsState: { skills, loading },
+  } = state;
+
+  return {
+    skills,
+    loading,
+  };
+};
+
+export default connect(mapStateToProps)(SkillList);

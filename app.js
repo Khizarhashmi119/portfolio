@@ -8,6 +8,7 @@ const path = require("path");
 
 const projectsRoutes = require("./routes/projects-routes");
 const authRoutes = require("./routes/auth-routes");
+const skillRoutes = require("./routes/skill-routes");
 
 const app = express();
 
@@ -47,3 +48,4 @@ if (process.env.NODE_ENV === "production") {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectsRoutes);
+app.use("/api/skills", skillRoutes);

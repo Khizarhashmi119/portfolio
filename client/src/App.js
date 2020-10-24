@@ -12,10 +12,12 @@ import DashboardPage from "./pages/DashboardPage";
 import LoginPage from "./pages/LoginPage";
 import AddProjectPage from "./pages/AddProjectPage";
 import UpdateProjectPage from "./pages/UpdateProjectPage";
+import AddSkillPage from "./pages/AddSkillPage";
 import Footer from "./components/Footer";
 import PageNotFoundPage from "./pages/PageNotFoundPage";
 import store from "./store/store";
-import { getProjectsAction } from "./store/actions/projectsAction";
+import { getProjectsAction } from "./store/actions/projectsActions";
+import { getSkillsAction } from "./store/actions/skillsActions";
 
 import "./App.scss";
 
@@ -27,6 +29,7 @@ const App = () => {
       changeTheme(theme);
     }
 
+    store.dispatch(getSkillsAction());
     store.dispatch(getProjectsAction());
   }, []);
 
@@ -52,6 +55,7 @@ const App = () => {
             path="/edit-project/:id"
             component={UpdateProjectPage}
           />
+          <PrivateRoute exact path="/add-skill" component={AddSkillPage} />
           <Route component={PageNotFoundPage} />
         </Switch>
         <Footer />

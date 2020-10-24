@@ -99,6 +99,12 @@ a {
   width: 88%;
 }
 
+.horizontal-rule {
+  border: 1px solid var(--color-3);
+  margin: 3rem auto;
+  width: 20%;
+}
+
 .loading-text {
   font-size: 2rem;
   margin: 3rem;
@@ -460,12 +466,19 @@ a {
 }
 
 .alert-box {
-  background-color: #dc3545;
   border-radius: 5px;
   box-shadow: -2px 7px 21px -9px rgba(0, 0, 0, 0.75);
   margin: 1.5rem auto;
   max-width: 600px;
   padding: 2% 5%;
+}
+
+.error {
+  background-color: #dc3545;
+}
+
+.success {
+  background-color: #28a745;
 }
 
 .login-form {
@@ -492,9 +505,23 @@ a {
   }
 }
 
-.dashboard-add-btn-container {
+.dashboard-add-skill-btn-container,
+.dashboard-add-project-btn-container {
   display: flex;
   justify-content: flex-start;
+  margin: 2rem 0;
+}
+
+.dashboard-skills-list {
+  background-color: var(--color-1);
+  border: 1px solid var(--color-3);
+  box-shadow: -2px 7px 21px -9px rgba(0, 0, 0, 0.75);
+  border-radius: 7px;
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  margin: 2rem auto;
+  padding: 1% 2%;
 }
 
 .dashboard-projects-list {
@@ -507,6 +534,24 @@ a {
   padding: 1% 2%;
   .dashboard-project:not(:last-child) {
     border-bottom: 1px solid var(--color-3);
+  }
+}
+
+.dashboard-skill {
+  background-color: var(--color-4);
+  border-radius: 25px/25px;
+  box-shadow: -2px 7px 21px -9px rgba(0, 0, 0, 0.75);
+  font-family: "Roboto Mono", monospace;
+  font-size: 1.1rem;
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+.delete-skill-icon {
+  cursor: pointer;
+  transition: transform 1s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+  &:hover {
+    transform: rotate(90deg);
   }
 }
 
@@ -524,18 +569,19 @@ a {
   margin: 0 0.5rem;
 }
 
-.dashboard-add-btn {
+.dashboard-add-skill-btn,
+.dashboard-add-project-btn {
   @include btn();
   width: auto;
 }
 
-.dashboard-delete-btn {
+.dashboard-delete-project-btn {
   @include btn();
   width: auto;
   margin: 0.5rem;
 }
 
-.dashboard-update-btn {
+.dashboard-update-project-btn {
   @include btn();
   width: auto;
   margin: 0.5rem;
@@ -579,6 +625,32 @@ a {
 }
 
 .project-btn {
+  @include btn();
+}
+//* Add-project styles end
+
+//* Add-skill styles start
+#add-skill {
+  background-color: var(--color-2);
+  border-bottom: 1px solid var(--color-3);
+  .container {
+    padding: 5% 7%;
+  }
+}
+
+.skill-form {
+  @include form();
+}
+
+.input-skill {
+  @include inputs();
+}
+
+.input-skill-order {
+  @include inputs();
+}
+
+.skill-btn {
   @include btn();
 }
 //* Add-project styles end

@@ -5,12 +5,27 @@ const getProjectsAction = () => {
   return async (dispatch) => {
     try {
       dispatch({ type: "GET_PROJECTS" });
-
       const response = await axios.get("/api/projects");
       dispatch({ type: "GET_PROJECTS_SUCCESS", payload: response.data });
     } catch (err) {
       const errors = err.response.data.errors;
-      dispatch({ type: "GET_PROJECTS_FAIL", payload: errors });
+
+      if (errors && errors.length > 0) {
+        errors.forEach((error) => {
+          const alertId = v4();
+          dispatch({
+            type: "ADD_ALERT",
+            payload: { id: alertId, msg: error.msg, type: "error" },
+          });
+
+          setTimeout(
+            () => dispatch({ type: "DELETE_ALERT", payload: alertId }),
+            5000
+          );
+        });
+      }
+
+      dispatch({ type: "GET_PROJECTS_FAIL", payload: errors || err });
     }
   };
 };
@@ -35,6 +50,7 @@ const addProjectAction = (project) => {
         payload: {
           id: alertId,
           msg: "Project added.",
+          type: "success",
         },
       });
 
@@ -45,19 +61,22 @@ const addProjectAction = (project) => {
     } catch (err) {
       const errors = err.response.data.errors;
 
-      if (errors.length > 0) {
+      if (errors && errors.length > 0) {
         errors.forEach((error) => {
-          const id = v4();
-          dispatch({ type: "ADD_ALERT", payload: { id, msg: error.msg } });
+          const alertId = v4();
+          dispatch({
+            type: "ADD_ALERT",
+            payload: { id: alertId, msg: error.msg, type: "error" },
+          });
 
           setTimeout(
-            () => dispatch({ type: "DELETE_ALERT", payload: id }),
+            () => dispatch({ type: "DELETE_ALERT", payload: alertId }),
             5000
           );
         });
       }
 
-      dispatch({ type: "ADD_PROJECT_FAIL", payload: errors });
+      dispatch({ type: "ADD_PROJECT_FAIL", payload: errors || err });
     }
   };
 };
@@ -76,7 +95,27 @@ const deleteProjectAction = (id) => {
       dispatch({ type: "DELETE_PROJECT_SUCCESS", payload: id });
     } catch (err) {
       const errors = err.response.data.errors;
-      dispatch({ type: "DELETE_PROJECT_FAIL", payload: errors });
+
+      if (errors && errors.length > 0) {
+        errors.forEach((error) => {
+          const alertId = v4();
+          dispatch({
+            type: "ADD_ALERT",
+            payload: { id: alertId, msg: error.msg, type: "error" },
+          });
+
+          setTimeout(
+            () =>
+              dispatch({
+                type: "DELETE_ALERT",
+                payload: alertId,
+              }),
+            5000
+          );
+        });
+      }
+
+      dispatch({ type: "DELETE_PROJECT_FAIL", payload: errors || err });
     }
   };
 };
@@ -101,6 +140,7 @@ const updateProjectAction = (id, project) => {
         payload: {
           id: alertId,
           msg: "Project updated.",
+          type: "success",
         },
       });
 
@@ -111,19 +151,22 @@ const updateProjectAction = (id, project) => {
     } catch (err) {
       const errors = err.response.data.errors;
 
-      if (errors.length > 0) {
+      if (errors && errors.length > 0) {
         errors.forEach((error) => {
-          const id = v4();
-          dispatch({ type: "ADD_ALERT", payload: { id, msg: error.msg } });
+          const alertId = v4();
+          dispatch({
+            type: "ADD_ALERT",
+            payload: { id: alertId, msg: error.msg, type: "error" },
+          });
 
           setTimeout(
-            () => dispatch({ type: "DELETE_ALERT", payload: id }),
+            () => dispatch({ type: "DELETE_ALERT", payload: alertId }),
             5000
           );
         });
       }
 
-      dispatch({ type: "UPDATE_PROJECT_FAIL", payload: errors });
+      dispatch({ type: "UPDATE_PROJECT_FAIL", payload: errors || err });
     }
   };
 };

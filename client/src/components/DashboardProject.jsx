@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { deleteProjectAction } from "../store/actions/projectsAction";
+import { deleteProjectAction } from "../store/actions/projectsActions";
 
 const DashboardProject = ({ history, id, title, index, deleteProject }) => {
   const handleClick1 = () => {
@@ -24,10 +24,10 @@ const DashboardProject = ({ history, id, title, index, deleteProject }) => {
         {title}
       </div>
       <div className="dashboard-project-btns">
-        <button className="dashboard-delete-btn" onClick={handleClick2}>
+        <button className="dashboard-delete-project-btn" onClick={handleClick2}>
           <i className="fas fa-trash"></i>
         </button>
-        <button className="dashboard-update-btn" onClick={handleClick1}>
+        <button className="dashboard-update-project-btn" onClick={handleClick1}>
           <i className="fas fa-pencil-alt"></i>
         </button>
       </div>

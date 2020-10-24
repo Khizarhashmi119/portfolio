@@ -102,7 +102,7 @@ const HomePage = ({ changeTheme, projects, loading }) => {
               <i className="fab fa-twitter fa-2x"></i>
             </a>
           </div>
-          <hr />
+          <hr className="horizontal-rule" />
           <h3 className="skills-title">Top Expertise</h3>
           <SkillList />
         </div>

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import {
   addProjectAction,
   updateProjectAction,
-} from "../store/actions/projectsAction";
+} from "../store/actions/projectsActions";
 
 const ProjectForm = ({ type, project, addProject, updateProject }) => {
   const [inputs, setInputs] = useState({
