@@ -7,7 +7,7 @@ const Alert = ({ alertsState }) => {
       {alertsState !== null &&
         alertsState.length > 0 &&
         alertsState.map((alert) => (
-          <div key={alert.id} className="alert-box">
+          <div key={alert.id} className={`alert-box ${alert.type}`}>
             {alert.msg}
           </div>
         ))}

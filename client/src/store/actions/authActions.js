@@ -21,7 +21,10 @@ const authenticateAdminAction = (email, password) => {
       if (errors.length > 0) {
         errors.forEach((error) => {
           const id = v4();
-          dispatch({ type: "ADD_ALERT", payload: { id, msg: error.msg } });
+          dispatch({
+            type: "ADD_ALERT",
+            payload: { id, msg: error.msg, type: "error" },
+          });
 
           setTimeout(
             () => dispatch({ type: "DELETE_ALERT", payload: id }),

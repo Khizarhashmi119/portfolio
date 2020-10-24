@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 import ProjectForm from "../components/ProjectForm";
@@ -11,12 +11,10 @@ const UpdateProjectPage = ({ match, projects, loading }) => {
     <section id="update-project">
       <div className="container">
         <h1>Edit project</h1>
+        <Alert />
         {!loading ? (
           project ? (
-            <Fragment>
-              <Alert />
-              <ProjectForm type="Edit" project={project} />
-            </Fragment>
+            <ProjectForm type="Edit" project={project} />
           ) : (
             <h2 className="loading-text">Loading...</h2>
           )
