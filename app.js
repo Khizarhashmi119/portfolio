@@ -1,37 +1,26 @@
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
+require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
-const morgan = require("morgan");
 const path = require("path");
 
+const connectDB = require("./db");
 const projectsRoutes = require("./routes/projects-routes");
 const authRoutes = require("./routes/auth-routes");
 const skillRoutes = require("./routes/skill-routes");
 
 const app = express();
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 //* Connect to database.
-mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-  })
-  .then(() => {
-    console.log("MongoDB is connected...");
-    app.listen(PORT, () => console.log(`Server is running at port ${PORT}...`));
-  })
-  .catch((err) => console.log(err));
+connectDB();
 
 //* Middlewares.
 app.use(express.json({ extended: false }));
-app.use(express.static("./client/public"));
-app.use(morgan("dev"));
+
+if (process.env.NODE_ENV === "development") {
+  app.use(express.static(path.join(__dirname, "client", "public")));
+  app.use(require("morgan")("dev"));
+}
 
 //* API routes.
 app.get("/api/", (req, res) => {
@@ -39,7 +28,7 @@ app.get("/api/", (req, res) => {
 });
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+  app.use(express.static(path.join(__dirname, "client", "build")));
 
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
@@ -49,3 +38,10 @@ if (process.env.NODE_ENV === "production") {
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectsRoutes);
 app.use("/api/skills", skillRoutes);
+
+app.listen(
+  PORT,
+  console.log(
+    `Server is running in ${process.env.NODE_ENV} mode at port ${PORT}`
+  )
+);
