@@ -1,7 +1,7 @@
-const { validationResult } = require("express-validator");
-const fs = require("fs");
+import { validationResult } from "express-validator";
+import fs from "fs";
 
-const Project = require("../models/Project");
+import Project from "../models/Project.js";
 
 //* @route  /api/projects
 //* @desc   Get projects.
@@ -135,9 +135,4 @@ const put_project = async (req, res) => {
   }
 };
 
-module.exports = {
-  get_projects,
-  post_project,
-  delete_project,
-  put_project,
-};
+export { get_projects, post_project, delete_project, put_project };
