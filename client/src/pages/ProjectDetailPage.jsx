@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import Moment from "react-moment";
 
 const ProjectDetailPage = ({ match, projects, loading }) => {
   const project = projects.find(({ _id }) => match.params.id === _id);
@@ -10,12 +11,12 @@ const ProjectDetailPage = ({ match, projects, loading }) => {
         {!loading ? (
           project ? (
             <div className="container">
-              <h2 className="project-title">{project.title}</h2>
               <img
                 className="project-img"
                 src={`/uploads/${project.image}`}
                 alt="Project"
               />
+              <h2 className="project-title">{project.title}</h2>
               <div className="project-links">
                 {project.repo && (
                   <a href={project.repo} className="project-link">
@@ -29,6 +30,13 @@ const ProjectDetailPage = ({ match, projects, loading }) => {
                 )}
               </div>
               <p className="project-detail">{project.detail}</p>
+              <div className="project-date">
+                Date:{" "}
+                <Moment
+                  date={project.updatedAt}
+                  format="MMMM Do YYYY, h:mm:ss a"
+                />
+              </div>
             </div>
           ) : (
             <h2 className="loading-text">Loading...</h2>

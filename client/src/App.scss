@@ -5,13 +5,13 @@
   --color-3: #164d56;
   --color-4: #2a91a1;
   --color-5: #111921;
-  scroll-behavior: smooth;
 }
 
 * {
+  box-sizing: border-box;
+  font-family: "Roboto Mono", monospace;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 h1,
@@ -37,7 +37,6 @@ a {
 .app {
   background-color: var(--color-1);
   color: var(--color-0);
-  font-family: "Roboto Mono", monospace;
 }
 
 //* Header styles start
@@ -66,11 +65,17 @@ a {
   align-items: center;
   display: flex;
   list-style-type: none;
-  justify-content: flex-end;
 }
 
 .navbar-item {
-  margin: 20px 0 20px 35px;
+  margin-left: 1rem;
+}
+
+.navbar-link {
+  display: inline-block;
+  padding: 7px 14px;
+  text-align: center;
+  width: 130px;
 }
 
 @mixin header-btn {
@@ -78,9 +83,11 @@ a {
   font-size: 1rem;
   background-color: var(--color-2);
   border: 1px solid var(--color-3);
-  border-radius: 5px;
+  border-radius: 0.25rem;
   color: var(--color-0);
-  padding: 10px 20px;
+  height: 43px;
+  padding: 7px 14px;
+  width: 130px;
 }
 
 .logout-button {
@@ -114,6 +121,7 @@ a {
 #title {
   border-bottom: 1px solid var(--color-3);
   height: 600px;
+
   .container {
     display: flex;
     height: 100%;
@@ -128,12 +136,14 @@ a {
 
 .terminal-top {
   align-items: center;
+
   border: {
     top: 1px solid var(--color-3);
     left: 1px solid var(--color-3);
     right: 1px solid var(--color-3);
-    radius: 5px 5px 0 0;
+    radius: 0.25rem 0.25rem 0 0;
   }
+
   display: flex;
   height: 8%;
   padding-left: 10px;
@@ -162,12 +172,14 @@ a {
 .terminal-bottom {
   align-items: center;
   background-color: var(--color-2);
+
   border: {
     top: 1px solid var(--color-3);
     left: 1px solid var(--color-3);
     right: 1px solid var(--color-3);
     radius: 0 0 5px 5px;
   }
+
   display: flex;
   flex-direction: column;
   height: 92%;
@@ -186,6 +198,7 @@ a {
 
 .name {
   color: var(--color-4);
+  font-family: "Russo One", sans-serif;
 }
 
 .theme-dots {
@@ -207,6 +220,7 @@ a {
 
 .theme-dot-1 {
   @include theme-dot(#fff);
+
   &:hover {
     transform: scale(1.2);
   }
@@ -214,6 +228,7 @@ a {
 
 .theme-dot-2 {
   @include theme-dot(#192734);
+
   &:hover {
     transform: scale(1.2);
   }
@@ -221,6 +236,7 @@ a {
 
 .theme-dot-3 {
   @include theme-dot(#212121);
+
   &:hover {
     transform: scale(1.2);
   }
@@ -236,8 +252,9 @@ a {
 #about {
   background-color: var(--color-2);
   border-bottom: 1px solid var(--color-3);
+
   .container {
-    padding: 5% 7%;
+    padding: 3% 5%;
   }
 }
 
@@ -263,23 +280,23 @@ a {
   margin: 2rem 0;
 }
 
-.skills {
+.skills-list {
   background-color: var(--color-5);
-  border-radius: 5px;
+  border-radius: 0.25rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  list-style-type: none;
   margin: 2rem 0;
-  padding: 5%;
+  padding: 3%;
 }
 
 .skill {
   background-color: var(--color-4);
   border-radius: 25px/25px;
   box-shadow: -2px 7px 21px -9px rgba(0, 0, 0, 0.75);
-  font-family: "Roboto Mono", monospace;
   font-size: 1.1rem;
-  margin: 1rem;
+  margin: 0.4rem;
   padding: 0.5rem 1rem;
 }
 //* About styles end
@@ -290,7 +307,7 @@ a {
   border-bottom: 1px solid var(--color-3);
 
   .container {
-    padding: 5% 7%;
+    padding: 3% 5%;
   }
 }
 
@@ -311,27 +328,19 @@ a {
 
 .project-preview {
   background-color: #fff;
+  border: 1px solid var(--color-3);
   box-shadow: -2px 7px 21px -9px rgba(0, 0, 0, 0.75);
   cursor: pointer;
   height: 400px;
   margin: 1rem;
   overflow: hidden;
-  max-width: 300px;
-}
-
-.project-preview-img-container {
-  height: 40%;
-  overflow: hidden;
-  width: 100%;
+  max-width: 310px;
 }
 
 .project-preview-img {
-  height: 100%;
+  border-bottom: 1px solid var(--color-3);
+  height: 40%;
   width: 100%;
-  transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
-  &:hover {
-    transform: scale(1.1);
-  }
 }
 
 .project-preview-title,
@@ -346,8 +355,9 @@ a {
 #contact {
   background-color: var(--color-2);
   border-bottom: 1px solid var(--color-3);
+
   .container {
-    padding: 5% 7%;
+    padding: 3% 5%;
   }
 }
 
@@ -358,7 +368,7 @@ a {
 @mixin form {
   background-color: var(--color-1);
   border: 1px solid var(--color-3);
-  border-radius: 7px;
+  border-radius: 0.25rem;
   box-shadow: -2px 7px 21px -9px rgba(0, 0, 0, 0.75);
   margin: 2rem auto;
   padding: 6% 8%;
@@ -373,7 +383,7 @@ a {
 @mixin inputs {
   background-color: var(--color-2);
   border: 1px solid var(--color-3);
-  border-radius: 5px;
+  border-radius: 0.25rem;
   color: var(--color-0);
   font-size: 1rem;
   margin: 1rem 0;
@@ -397,11 +407,10 @@ a {
 
 @mixin btn {
   cursor: pointer;
-  font-family: "Roboto Mono", monospace;
   font-size: 1rem;
   background-color: var(--color-4);
   border: 1px solid var(--color-3);
-  border-radius: 5px;
+  border-radius: 0.25rem;
   color: var(--color-0);
   padding: 10px 20px;
   width: 100%;
@@ -417,8 +426,9 @@ a {
   background-color: var(--color-2);
   border-bottom: 1px solid var(--color-3);
   min-height: 80vh;
+
   .container {
-    padding: 5% 7%;
+    padding: 3% 5%;
   }
 }
 //* Projects styles end
@@ -427,8 +437,9 @@ a {
 #project-detail {
   background-color: var(--color-2);
   border-bottom: 1px solid var(--color-3);
+
   .container {
-    padding: 5% 7%;
+    padding: 3% 5%;
   }
 }
 
@@ -437,12 +448,17 @@ a {
 }
 
 .project-img {
+  border: 1px solid var(--color-3);
+  border-radius: 0.25rem;
+  box-shadow: -2px 7px 21px -9px rgba(0, 0, 0, 0.75);
+  max-height: 400px;
   margin: 1rem 0;
-  max-width: 90%;
+  object-fit: cover;
+  width: 100%;
 }
 
 .project-links {
-  margin: 1rem;
+  margin: 2rem;
 }
 
 .project-link {
@@ -454,19 +470,24 @@ a {
   margin: 2rem 0;
   text-align: left;
 }
+
+.project-date {
+  text-align: right;
+}
 //* Project-detail styles end
 
 //* Login styles start
 #login {
   background-color: var(--color-2);
   border-bottom: 1px solid var(--color-3);
+
   .container {
-    padding: 5% 7%;
+    padding: 3% 5%;
   }
 }
 
 .alert-box {
-  border-radius: 5px;
+  border-radius: 0.25rem;
   box-shadow: -2px 7px 21px -9px rgba(0, 0, 0, 0.75);
   margin: 1.5rem auto;
   max-width: 600px;
@@ -500,8 +521,9 @@ a {
   background-color: var(--color-2);
   border-bottom: 1px solid var(--color-3);
   min-height: 80vh;
+
   .container {
-    padding: 5% 7%;
+    padding: 3% 5%;
   }
 }
 
@@ -516,22 +538,24 @@ a {
   background-color: var(--color-1);
   border: 1px solid var(--color-3);
   box-shadow: -2px 7px 21px -9px rgba(0, 0, 0, 0.75);
-  border-radius: 7px;
+  border-radius: 0.25rem;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   list-style-type: none;
   margin: 2rem auto;
-  padding: 1% 2%;
+  padding: 3%;
 }
 
 .dashboard-projects-list {
   background-color: var(--color-1);
   border: 1px solid var(--color-3);
   box-shadow: -2px 7px 21px -9px rgba(0, 0, 0, 0.75);
-  border-radius: 7px;
+  border-radius: 0.25rem;
   list-style-type: none;
   margin: 2rem auto;
-  padding: 1% 2%;
+  padding: 3%;
+
   .dashboard-project:not(:last-child) {
     border-bottom: 1px solid var(--color-3);
   }
@@ -541,15 +565,15 @@ a {
   background-color: var(--color-4);
   border-radius: 25px/25px;
   box-shadow: -2px 7px 21px -9px rgba(0, 0, 0, 0.75);
-  font-family: "Roboto Mono", monospace;
   font-size: 1.1rem;
-  margin: 1rem;
+  margin: 0.4rem;
   padding: 0.5rem 1rem;
 }
 
 .delete-skill-icon {
   cursor: pointer;
   transition: transform 1s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+
   &:hover {
     transform: rotate(90deg);
   }
@@ -592,8 +616,9 @@ a {
 #add-project {
   background-color: var(--color-2);
   border-bottom: 1px solid var(--color-3);
+
   .container {
-    padding: 5% 7%;
+    padding: 3% 5%;
   }
 }
 
@@ -633,8 +658,9 @@ a {
 #add-skill {
   background-color: var(--color-2);
   border-bottom: 1px solid var(--color-3);
+
   .container {
-    padding: 5% 7%;
+    padding: 3% 5%;
   }
 }
 
@@ -659,8 +685,9 @@ a {
 #update-project {
   background-color: var(--color-2);
   border-bottom: 1px solid var(--color-3);
+
   .container {
-    padding: 5% 7%;
+    padding: 3% 5%;
   }
 }
 //* Update-project styles end
@@ -670,8 +697,9 @@ a {
   background-color: var(--color-2);
   border-bottom: 1px solid var(--color-3);
   height: 100vh;
+
   .container {
-    padding: 5% 7%;
+    padding: 3% 5%;
   }
 }
 
@@ -683,7 +711,7 @@ a {
 //* Footer styles start
 #footer {
   .container {
-    padding: 5% 7%;
+    padding: 3% 5%;
   }
 }
 
@@ -692,30 +720,37 @@ a {
 }
 //* Footer styles end
 
-@media (max-width: 750px) {
+@media (max-width: 1070px) {
   .navbar-links {
-    align-items: flex-start;
     background-color: var(--color-1);
     display: none;
     flex-direction: column;
-    position: fixed;
-    top: 10vh;
+    position: absolute;
+    top: 12vh;
     left: 0;
     width: 100%;
   }
 
-  .navbar-button {
-    display: inline;
+  .navbar-link {
+    font-size: 0.9rem;
+    width: 110px;
+  }
+
+  .navbar-item {
+    margin: 1rem 0;
+  }
+
+  .navbar-button,
+  .logout-button {
+    display: inline-block;
+    font-size: 0.9rem;
+    padding: 7px 14px;
+    width: 110px;
   }
 
   .logo {
     font-size: 0.9rem;
     letter-spacing: normal;
-  }
-
-  .navbar-button {
-    font-size: 0.9rem;
-    padding: 10px 15px;
   }
 
   .terminal {
@@ -739,9 +774,17 @@ a {
     margin: 0.3rem;
   }
 
+  .project-date {
+    text-align: center;
+  }
+
   #footer {
     .container {
       padding: 15% 2%;
     }
   }
+}
+
+.navbar-active {
+  display: flex;
 }

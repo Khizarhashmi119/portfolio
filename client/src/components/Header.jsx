@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import { Link, NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-const Header = ({ history, authState, logout }) => {
-  const [isVisisble, setIsVisible] = useState(false);
+const Header = ({ history, isAuthenticated, logout }) => {
+  const [isNavbarActive, setIsNavbarActive] = useState(false);
 
   const handleClick1 = () => {
-    setIsVisible((prevState) => {
-      return !prevState;
-    });
+    setIsNavbarActive((prevState) => !prevState);
   };
 
   const handleClick2 = () => {
@@ -22,13 +20,13 @@ const Header = ({ history, authState, logout }) => {
         <Link className="logo" to="/">
           <h1>Mohd. Khizar Hashmi</h1>
         </Link>
-        <ul className="navbar-links" style={{ display: isVisisble && "flex" }}>
+        <ul className={`navbar-links ${isNavbarActive && "navbar-active"}`}>
           <li className="navbar-item">
             <NavLink className="navbar-link" exact to="/">
               /Home
             </NavLink>
           </li>
-          {authState.isAuthenticated && (
+          {isAuthenticated && (
             <li className="navbar-item">
               <NavLink className="navbar-link" to="/dashboard">
                 /Dashboard
@@ -40,7 +38,7 @@ const Header = ({ history, authState, logout }) => {
               /Projects
             </NavLink>
           </li>
-          {authState.isAuthenticated && (
+          {isAuthenticated && (
             <li className="navbar-item">
               <button className="logout-button" onClick={handleClick2}>
                 Logout
@@ -57,10 +55,12 @@ const Header = ({ history, authState, logout }) => {
 };
 
 const mapStateToProps = (state) => {
-  const { authState } = state;
+  const {
+    authState: { isAuthenticated },
+  } = state;
 
   return {
-    authState,
+    isAuthenticated,
   };
 };
 

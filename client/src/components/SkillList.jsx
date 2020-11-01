@@ -5,7 +5,7 @@ import Skill from "./Skill";
 
 const SkillList = ({ loading, skills }) => {
   return (
-    <div className="skills">
+    <ul className="skills-list">
       {!loading ? (
         skills.length !== 0 ? (
           skills.map(({ _id, skill }) => <Skill key={_id} skill={skill} />)
@@ -15,7 +15,7 @@ const SkillList = ({ loading, skills }) => {
       ) : (
         <h2 className="loading-text">Loading....</h2>
       )}
-    </div>
+    </ul>
   );
 };
 

@@ -7,13 +7,11 @@ const Project = ({ history, id, title, detail, image }) => {
       className="project-preview"
       onClick={() => history.push(`/projects/${id}`)}
     >
-      <div className="project-preview-img-container">
-        <img
-          className="project-preview-img"
-          src={`/uploads/${image}`}
-          alt="Project"
-        />
-      </div>
+      <img
+        className="project-preview-img"
+        src={`/uploads/${image}`}
+        alt="Project"
+      />
       <h3 className="project-preview-title">{title}</h3>
       <p className="project-preview-detail">{detail.slice(0, 100)}</p>
     </div>
