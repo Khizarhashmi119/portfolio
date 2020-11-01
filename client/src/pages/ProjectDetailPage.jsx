@@ -1,8 +1,9 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import Moment from "react-moment";
 
-const ProjectDetailPage = ({ match, projects, loading }) => {
+const ProjectDetailPage = ({ match }) => {
+  const { projects, loading } = useSelector((state) => state.projectsState);
   const project = projects.find(({ _id }) => match.params.id === _id);
 
   return (
@@ -49,15 +50,4 @@ const ProjectDetailPage = ({ match, projects, loading }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  const {
-    projectsState: { projects, loading },
-  } = state;
-
-  return {
-    projects,
-    loading,
-  };
-};
-
-export default connect(mapStateToProps)(ProjectDetailPage);
+export default ProjectDetailPage;

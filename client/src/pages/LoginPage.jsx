@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { authenticateAdminAction } from "../store/actions/authActions";
 
 import Alert from "../components/Alert";
 
-const LoginPage = ({ authState, authenticateAdmin }) => {
+const LoginPage = () => {
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
   });
+  const { isAuthenticated } = useSelector((state) => state.authState);
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,10 +26,10 @@ const LoginPage = ({ authState, authenticateAdmin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    authenticateAdmin(inputs.email, inputs.password);
+    dispatch(authenticateAdminAction(inputs.email, inputs.password));
   };
 
-  if (authState.isAuthenticated) {
+  if (isAuthenticated) {
     return <Redirect to="/" />;
   }
 
@@ -66,20 +68,4 @@ const LoginPage = ({ authState, authenticateAdmin }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  const { authState } = state;
-
-  return {
-    authState,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    authenticateAdmin: (email, password) => {
-      dispatch(authenticateAdminAction(email, password));
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default LoginPage;

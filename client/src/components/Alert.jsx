@@ -1,7 +1,9 @@
 import React, { Fragment } from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
-const Alert = ({ alertsState }) => {
+const Alert = () => {
+  const alertsState = useSelector((state) => state.alertsState);
+
   return (
     <Fragment>
       {alertsState !== null &&
@@ -15,11 +17,4 @@ const Alert = ({ alertsState }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  const { alertsState } = state;
-  return {
-    alertsState,
-  };
-};
-
-export default connect(mapStateToProps)(Alert);
+export default Alert;

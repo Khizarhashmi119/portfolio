@@ -1,9 +1,11 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Skill from "./Skill";
 
-const SkillList = ({ loading, skills }) => {
+const SkillList = () => {
+  const { skills, loading } = useSelector((state) => state.skillsState);
+
   return (
     <ul className="skills-list">
       {!loading ? (
@@ -19,15 +21,4 @@ const SkillList = ({ loading, skills }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  const {
-    skillsState: { skills, loading },
-  } = state;
-
-  return {
-    skills,
-    loading,
-  };
-};
-
-export default connect(mapStateToProps)(SkillList);
+export default SkillList;

@@ -1,16 +1,18 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { deleteProjectAction } from "../store/actions/projectsActions";
 
-const DashboardProject = ({ history, id, title, index, deleteProject }) => {
+const DashboardProject = ({ history, id, title, index }) => {
+  const dispatch = useDispatch();
+
   const handleClick1 = () => {
     history.push(`/edit-project/${id}`);
   };
 
   const handleClick2 = () => {
-    deleteProject(id);
+    dispatch(deleteProjectAction(id));
   };
 
   const handleClick3 = () => {
@@ -35,12 +37,4 @@ const DashboardProject = ({ history, id, title, index, deleteProject }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteProject: (id) => {
-      dispatch(deleteProjectAction(id));
-    },
-  };
-};
-
-export default connect(null, mapDispatchToProps)(withRouter(DashboardProject));
+export default withRouter(DashboardProject);

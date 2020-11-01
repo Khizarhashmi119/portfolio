@@ -1,11 +1,13 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { deleteSkillAction } from "../store/actions/skillsActions";
 
-const DashboardSkill = ({ id, skill, deleteSkill }) => {
+const DashboardSkill = ({ id, skill }) => {
+  const dispatch = useDispatch();
+
   const handleClick = () => {
-    deleteSkill(id);
+    dispatch(deleteSkillAction(id));
   };
 
   return (
@@ -16,12 +18,4 @@ const DashboardSkill = ({ id, skill, deleteSkill }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteSkill: (id) => {
-      dispatch(deleteSkillAction(id));
-    },
-  };
-};
-
-export default connect(null, mapDispatchToProps)(DashboardSkill);
+export default DashboardSkill;
