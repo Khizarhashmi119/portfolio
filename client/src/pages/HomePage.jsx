@@ -1,17 +1,18 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
 import SkillList from "../components/SkillList";
 import ProjectList from "../components/ProjectList";
 
-const HomePage = ({ changeTheme, projects, loading }) => {
+const HomePage = ({ changeTheme }) => {
   const [inputs, setInputs] = useState({
     name: "",
     subject: "",
     email: "",
     message: "",
   });
+  const { projects, loading } = useSelector((state) => state.projectsState);
 
   const handleClick = (e) => {
     const { theme } = e.target.dataset;
@@ -179,15 +180,4 @@ const HomePage = ({ changeTheme, projects, loading }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  const {
-    projectsState: { projects, loading },
-  } = state;
-
-  return {
-    projects,
-    loading,
-  };
-};
-
-export default connect(mapStateToProps)(HomePage);
+export default HomePage;

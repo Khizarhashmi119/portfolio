@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { addSkillAction } from "../store/actions/skillsActions";
 
-const SkillForm = ({ type, addSkill }) => {
+const SkillForm = ({ type }) => {
   const [inputs, setInputs] = useState({
     skill: "",
     order: 0,
   });
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,7 +20,7 @@ const SkillForm = ({ type, addSkill }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addSkill(inputs);
+    dispatch(addSkillAction(inputs));
   };
 
   return (
@@ -50,12 +51,4 @@ const SkillForm = ({ type, addSkill }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addSkill: (skill) => {
-      dispatch(addSkillAction(skill));
-    },
-  };
-};
-
-export default connect(null, mapDispatchToProps)(SkillForm);
+export default SkillForm;

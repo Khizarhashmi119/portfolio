@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import {
   addProjectAction,
   updateProjectAction,
 } from "../store/actions/projectsActions";
 
-const ProjectForm = ({ type, project, addProject, updateProject }) => {
+const ProjectForm = ({ type, project }) => {
   const [inputs, setInputs] = useState({
     title: type === "Edit" ? project.title : "",
     detail: type === "Edit" ? project.detail : "",
@@ -14,6 +14,7 @@ const ProjectForm = ({ type, project, addProject, updateProject }) => {
     link: type === "Edit" ? project.link : "",
   });
   const [file, setFile] = useState(null);
+  const dispatch = useDispatch();
 
   const handleChange1 = (e) => {
     const { name, value } = e.target;
@@ -38,7 +39,9 @@ const ProjectForm = ({ type, project, addProject, updateProject }) => {
     fd.append("repo", inputs.repo);
     fd.append("link", inputs.link);
     fd.append("image", file);
-    type === "Edit" ? updateProject(project._id, fd) : addProject(fd);
+    type === "Edit"
+      ? dispatch(updateProjectAction(project._id, fd))
+      : dispatch(addProjectAction(fd));
   };
 
   return (
@@ -95,15 +98,4 @@ const ProjectForm = ({ type, project, addProject, updateProject }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addProject: (project) => {
-      dispatch(addProjectAction(project));
-    },
-    updateProject: (id, project) => {
-      dispatch(updateProjectAction(id, project));
-    },
-  };
-};
-
-export default connect(null, mapDispatchToProps)(ProjectForm);
+export default ProjectForm;

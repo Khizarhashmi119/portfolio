@@ -1,10 +1,11 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
 import ProjectForm from "../components/ProjectForm";
 import Alert from "../components/Alert";
 
-const UpdateProjectPage = ({ match, projects, loading }) => {
+const UpdateProjectPage = ({ match }) => {
+  const { projects, loading } = useSelector((state) => state.projectsState);
   const project = projects.find(({ _id }) => match.params.id === _id);
 
   return (
@@ -26,15 +27,4 @@ const UpdateProjectPage = ({ match, projects, loading }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  const {
-    projectsState: { projects, loading },
-  } = state;
-
-  return {
-    projects,
-    loading,
-  };
-};
-
-export default connect(mapStateToProps)(UpdateProjectPage);
+export default UpdateProjectPage;

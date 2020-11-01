@@ -1,9 +1,11 @@
 import React, { Fragment } from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
 import DashboardSkill from "./DashboardSkill";
 
-const DashboardSkillList = ({ skills, loading }) => {
+const DashboardSkillList = () => {
+  const { skills, loading } = useSelector((state) => state.skillsState);
+
   return (
     <Fragment>
       {!loading ? (
@@ -23,15 +25,4 @@ const DashboardSkillList = ({ skills, loading }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  const {
-    skillsState: { skills, loading },
-  } = state;
-
-  return {
-    skills,
-    loading,
-  };
-};
-
-export default connect(mapStateToProps)(DashboardSkillList);
+export default DashboardSkillList;

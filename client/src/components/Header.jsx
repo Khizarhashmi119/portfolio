@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { Link, NavLink, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-const Header = ({ history, isAuthenticated, logout }) => {
+const Header = ({ history }) => {
   const [isNavbarActive, setIsNavbarActive] = useState(false);
+  const { isAuthenticated } = useSelector((state) => state.authState);
+  const dispatch = useDispatch();
 
   const handleClick1 = () => {
     setIsNavbarActive((prevState) => !prevState);
   };
 
   const handleClick2 = () => {
-    logout();
+    dispatch({ type: "LOGOUT" });
     history.push("/");
   };
 
@@ -54,22 +56,4 @@ const Header = ({ history, isAuthenticated, logout }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  const {
-    authState: { isAuthenticated },
-  } = state;
-
-  return {
-    isAuthenticated,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    logout: () => {
-      dispatch({ type: "LOGOUT" });
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));
+export default withRouter(Header);

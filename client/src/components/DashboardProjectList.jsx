@@ -1,9 +1,11 @@
 import React, { Fragment } from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
 import DashboardProject from "./DashboardProject";
 
-const DashboardProjectList = ({ projects, loading }) => {
+const DashboardProjectList = () => {
+  const { projects, loading } = useSelector((state) => state.projectsState);
+
   return (
     <Fragment>
       {!loading ? (
@@ -28,14 +30,4 @@ const DashboardProjectList = ({ projects, loading }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  const {
-    projectsState: { projects, loading },
-  } = state;
-  return {
-    projects,
-    loading,
-  };
-};
-
-export default connect(mapStateToProps)(DashboardProjectList);
+export default DashboardProjectList;
