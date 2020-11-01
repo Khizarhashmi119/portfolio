@@ -5,6 +5,7 @@
   "main": "app.js",
   "author": "Mohd. Khizar Hashmi",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "start": "cross-env NODE_ENV='production' node app",
     "dev": "cross-env NODE_ENV='development' nodemon app",

@@ -1,15 +1,20 @@
-require("dotenv").config();
-const express = require("express");
-const path = require("path");
+import { config } from "dotenv";
+import express from "express";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
+import morgan from "morgan";
 
-const connectDB = require("./db");
-const projectsRoutes = require("./routes/projects-routes");
-const authRoutes = require("./routes/auth-routes");
-const skillRoutes = require("./routes/skill-routes");
+import connectDB from "./db.js";
+import projectsRoutes from "./routes/projects-routes.js";
+import authRoutes from "./routes/auth-routes.js";
+import skillRoutes from "./routes/skill-routes.js";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const app = express();
+config();
 
-const PORT = process.env.PORT;
+const { PORT, NODE_ENV } = process.env;
 
 //* Connect to database.
 connectDB();
@@ -17,9 +22,9 @@ connectDB();
 //* Middlewares.
 app.use(express.json({ extended: false }));
 
-if (process.env.NODE_ENV === "development") {
-  app.use(express.static(path.join(__dirname, "client", "public")));
-  app.use(require("morgan")("dev"));
+if (NODE_ENV === "development") {
+  app.use(express.static(join(__dirname, "client", "public")));
+  app.use(morgan("dev"));
 }
 
 //* API routes.
@@ -27,11 +32,11 @@ app.get("/api/", (req, res) => {
   res.json({ msg: "API is running..." });
 });
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client", "build")));
+if (NODE_ENV === "production") {
+  app.use(express.static(join(__dirname, "client", "build")));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+    res.sendFile(join(__dirname, "client", "build", "index.html"));
   });
 }
 
@@ -41,7 +46,5 @@ app.use("/api/skills", skillRoutes);
 
 app.listen(
   PORT,
-  console.log(
-    `Server is running in ${process.env.NODE_ENV} mode at port ${PORT}`
-  )
+  console.log(`Server is running in ${NODE_ENV} mode at port ${PORT}`)
 );

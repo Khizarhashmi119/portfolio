@@ -1,7 +1,17 @@
-const express = require("express");
-const { check } = require("express-validator");
-const multer = require("multer");
-const _ = require("lodash");
+import express from "express";
+import { check } from "express-validator";
+import multer from "multer";
+import _ from "lodash";
+
+import {
+  get_projects,
+  post_project,
+  delete_project,
+  put_project,
+} from "../controllers/projects-controllers.js";
+import authMiddleware from "../middlewares/auth-middleware.js";
+
+const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -13,16 +23,6 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage });
-
-const {
-  get_projects,
-  post_project,
-  delete_project,
-  put_project,
-} = require("../controllers/projects-controllers");
-const authMiddleware = require("../middlewares/auth-middleware");
-
-const router = express.Router();
 
 router.get("/", get_projects);
 router.post(
@@ -51,4 +51,4 @@ router.put(
   put_project
 );
 
-module.exports = router;
+export default router;

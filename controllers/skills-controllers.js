@@ -1,5 +1,5 @@
-const { validationResult } = require("express-validator");
-const Skill = require("../models/Skill");
+import { validationResult } from "express-validator";
+import Skill from "../models/Skill.js";
 
 //* @route  /api/skills
 //* @desc   Get skills.
@@ -86,4 +86,4 @@ const put_skill = async (req, res) => {
   }
 };
 
-module.exports = { get_skills, post_skill, delete_skill, put_skill };
+export { get_skills, post_skill, delete_skill, put_skill };
