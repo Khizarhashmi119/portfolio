@@ -1,13 +1,14 @@
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-const { program } = require("commander");
-const { prompt } = require("inquirer");
-const mongoose = require("mongoose");
+import { config } from "dotenv";
+import { program } from "commander";
+import inquirer from "inquirer";
+import mongoose from "mongoose";
 
-const Admin = require("./models/Admin");
+import Admin from "./models/Admin.js";
 
-const db = mongoose.connect(process.env.MONGO_URI, {
+config();
+const { prompt } = inquirer;
+
+const conn = mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
@@ -37,16 +38,16 @@ program
     const answers = await prompt(questions);
     if (!answers.email && !answers.password) {
       console.info("Please enter required fields.");
-      (await db).disconnect();
+      await conn.disconnect();
     } else {
       try {
         const newAdmin = new Admin(answers);
         await newAdmin.save();
         console.info("Admin is successfully created.");
-        (await db).disconnect();
+        await conn.disconnect();
       } catch (err) {
         console.error(err);
-        (await db).disconnect();
+        await conn.disconnect();
       }
     }
   });
