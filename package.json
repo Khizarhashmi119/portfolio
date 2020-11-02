@@ -10,7 +10,8 @@
     "start": "cross-env NODE_ENV='production' node app",
     "dev": "cross-env NODE_ENV='development' nodemon app",
     "client": "cd client && yarn start",
-    "mern": "concurrently -n 'server,client' -c 'green,blue' \"yarn dev\" \"yarn client\""
+    "mern": "concurrently -n 'server,client' -c 'green,blue' \"yarn dev\" \"yarn client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && yarn install && yarn run build"
   },
   "dependencies": {
     "commander": "^6.1.0",
