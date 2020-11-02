@@ -6,7 +6,7 @@ import SkillList from "../components/SkillList";
 import ProjectList from "../components/ProjectList";
 
 const HomePage = ({ changeTheme }) => {
-  const [inputs, setInputs] = useState({
+  const [contactData, setContactData] = useState({
     name: "",
     subject: "",
     email: "",
@@ -21,7 +21,7 @@ const HomePage = ({ changeTheme }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setInputs((prev) => {
+    setContactData((prev) => {
       return {
         ...prev,
         [name]: value,
@@ -31,7 +31,7 @@ const HomePage = ({ changeTheme }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputs);
+    console.log(contactData);
   };
 
   return (

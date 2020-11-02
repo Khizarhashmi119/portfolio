@@ -38,7 +38,6 @@ const addProjectAction = (project) => {
       const response = await axios.post("/api/projects/create", project, {
         headers: {
           "x-auth-token": localStorage.getItem("token"),
-          "content-type": "multipart/form-data",
         },
       });
 
@@ -128,7 +127,6 @@ const updateProjectAction = (id, project) => {
       const response = await axios.put(`/api/projects/${id}`, project, {
         headers: {
           "x-auth-token": localStorage.getItem("token"),
-          "content-type": "multipart/form-data",
         },
       });
 

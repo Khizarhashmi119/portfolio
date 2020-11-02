@@ -1,5 +1,4 @@
 import { validationResult } from "express-validator";
-import fs from "fs";
 
 import Project from "../models/Project.js";
 
@@ -28,18 +27,8 @@ const post_project = async (req, res) => {
     return res.status(400).json({ errors: errs.array() });
   }
 
-  const { title, detail, repo, link } = req.body;
-  const { filename } = req.file;
-
   try {
-    const newProject = new Project({
-      title,
-      detail,
-      repo,
-      link,
-      image: filename,
-    });
-
+    const newProject = new Project(req.body);
     await newProject.save();
     return res.status(200).json(newProject);
   } catch (err) {
@@ -56,14 +45,7 @@ const post_project = async (req, res) => {
 const delete_project = async (req, res) => {
   const { id } = req.params;
   try {
-    const project = await Project.findById(id);
-    const imagePath = `./client/public/uploads/${project.image}`;
-
-    if (fs.existsSync(imagePath)) {
-      fs.unlinkSync(imagePath);
-    }
-
-    await project.remove();
+    await Project.findByIdAndRemove(id);
     return res.status(200).json({ msg: "Project deleted." });
   } catch (err) {
     console.error(err);
@@ -84,47 +66,11 @@ const put_project = async (req, res) => {
   }
 
   const { id } = req.params;
-  const { title, detail, repo, link } = req.body;
 
   try {
-    if (req.file) {
-      const { filename } = req.file;
-      const project = await Project.findById(id);
-      const imagePath = `./client/public/uploads/${project.image}`;
-
-      if (fs.existsSync(imagePath)) {
-        fs.unlinkSync(imagePath);
-      }
-
-      const updatedProject = await Project.findByIdAndUpdate(
-        id,
-        {
-          title,
-          detail,
-          repo,
-          link,
-          image: filename,
-        },
-        {
-          new: true,
-        }
-      );
-
-      return res.status(200).json(updatedProject);
-    }
-
-    const updatedProject = await Project.findByIdAndUpdate(
-      id,
-      {
-        title,
-        detail,
-        repo,
-        link,
-      },
-      {
-        new: true,
-      }
-    );
+    const updatedProject = await Project.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
 
     return res.status(200).json(updatedProject);
   } catch (err) {
