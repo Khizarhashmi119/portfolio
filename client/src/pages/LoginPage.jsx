@@ -7,7 +7,7 @@ import { authenticateAdminAction } from "../store/actions/authActions";
 import Alert from "../components/Alert";
 
 const LoginPage = () => {
-  const [inputs, setInputs] = useState({
+  const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
@@ -16,7 +16,7 @@ const LoginPage = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setInputs((prev) => {
+    setLoginData((prev) => {
       return {
         ...prev,
         [name]: value,
@@ -26,7 +26,7 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(authenticateAdminAction(inputs.email, inputs.password));
+    dispatch(authenticateAdminAction(loginData.email, loginData.password));
   };
 
   if (isAuthenticated) {
@@ -45,6 +45,7 @@ const LoginPage = () => {
               className="login-input-email"
               type="email"
               name="email"
+              value={loginData.email}
               id="email"
               required
               onChange={handleChange}
@@ -54,6 +55,7 @@ const LoginPage = () => {
               className="login-input-password"
               type="password"
               name="password"
+              value={loginData.password}
               id="password"
               required
               onChange={handleChange}

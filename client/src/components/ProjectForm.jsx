@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import FileBase64 from "./FileBase64";
 
 import {
   addProjectAction,
@@ -7,19 +8,19 @@ import {
 } from "../store/actions/projectsActions";
 
 const ProjectForm = ({ type, project }) => {
-  const [inputs, setInputs] = useState({
+  const [projectData, setProjectData] = useState({
     title: type === "Edit" ? project.title : "",
     detail: type === "Edit" ? project.detail : "",
     repo: type === "Edit" ? project.repo : "",
     link: type === "Edit" ? project.link : "",
+    image: type === "Edit" ? project.image : "",
   });
-  const [file, setFile] = useState(null);
   const dispatch = useDispatch();
 
-  const handleChange1 = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setInputs((prev) => {
+    setProjectData((prev) => {
       return {
         ...prev,
         [name]: value,
@@ -27,21 +28,11 @@ const ProjectForm = ({ type, project }) => {
     });
   };
 
-  const handleChange2 = (e) => {
-    setFile(e.target.files[0]);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    const fd = new FormData();
-    fd.append("title", inputs.title);
-    fd.append("detail", inputs.detail);
-    fd.append("repo", inputs.repo);
-    fd.append("link", inputs.link);
-    fd.append("image", file);
     type === "Edit"
-      ? dispatch(updateProjectAction(project._id, fd))
-      : dispatch(addProjectAction(fd));
+      ? dispatch(updateProjectAction(project._id, projectData))
+      : dispatch(addProjectAction(projectData));
   };
 
   return (
@@ -52,8 +43,9 @@ const ProjectForm = ({ type, project }) => {
         type="text"
         id="project-title"
         name="title"
-        value={inputs.title}
-        onChange={handleChange1}
+        value={projectData.title}
+        onChange={handleChange}
+        required
       />
       <label htmlFor="project-detail">Detail:</label>
       <textarea
@@ -62,8 +54,9 @@ const ProjectForm = ({ type, project }) => {
         cols="30"
         rows="7"
         name="detail"
-        value={inputs.detail}
-        onChange={handleChange1}
+        value={projectData.detail}
+        onChange={handleChange}
+        required
       ></textarea>
       <label htmlFor="project-repo">Github repo:</label>
       <input
@@ -71,8 +64,8 @@ const ProjectForm = ({ type, project }) => {
         type="url"
         id="project-repo"
         name="repo"
-        value={inputs.repo}
-        onChange={handleChange1}
+        value={projectData.repo}
+        onChange={handleChange}
       />
       <label htmlFor="project-link">Project link:</label>
       <input
@@ -80,16 +73,16 @@ const ProjectForm = ({ type, project }) => {
         type="url"
         id="project-link"
         name="link"
-        value={inputs.link}
-        onChange={handleChange1}
+        value={projectData.link}
+        onChange={handleChange}
       />
       <label htmlFor="project-image">Image:</label>
-      <input
-        className="input-project-image"
-        type="file"
+      <FileBase64
         id="project-image"
-        name="image"
-        onChange={handleChange2}
+        className="input-project-image"
+        onDone={(fileDataURL) =>
+          setProjectData({ ...projectData, image: fileDataURL })
+        }
       />
       <button className="project-btn" type="submit">
         {type}

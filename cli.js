@@ -38,16 +38,16 @@ program
     const answers = await prompt(questions);
     if (!answers.email && !answers.password) {
       console.info("Please enter required fields.");
-      await conn.disconnect();
+      (await conn).disconnect;
     } else {
       try {
         const newAdmin = new Admin(answers);
         await newAdmin.save();
         console.info("Admin is successfully created.");
-        await conn.disconnect();
+        (await conn).disconnect();
       } catch (err) {
         console.error(err);
-        await conn.disconnect();
+        (await conn).disconnect();
       }
     }
   });

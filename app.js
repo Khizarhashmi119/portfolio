@@ -23,7 +23,6 @@ connectDB();
 app.use(express.json({ extended: false }));
 
 if (NODE_ENV === "development") {
-  app.use(express.static(join(__dirname, "client", "public")));
   app.use(morgan("dev"));
 }
 
