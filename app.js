@@ -32,6 +32,10 @@ app.get("/api/", (req, res) => {
   res.json({ msg: "API is running..." });
 });
 
+app.use("/api/auth", authRoutes);
+app.use("/api/projects", projectsRoutes);
+app.use("/api/skills", skillRoutes);
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(join(__dirname, "client", "build")));
 
@@ -39,10 +43,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(join(__dirname, "client", "build", "index.html"));
   });
 }
-
-app.use("/api/auth", authRoutes);
-app.use("/api/projects", projectsRoutes);
-app.use("/api/skills", skillRoutes);
 
 app.listen(
   process.env.PORT,
