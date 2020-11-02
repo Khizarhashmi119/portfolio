@@ -12,9 +12,10 @@ import skillRoutes from "./routes/skill-routes.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app = express();
-config();
 
-const { PORT, NODE_ENV } = process.env;
+if (process.env.NODE_ENV === "development") {
+  config();
+}
 
 //* Connect to database.
 connectDB();
@@ -22,7 +23,7 @@ connectDB();
 //* Middlewares.
 app.use(express.json({ extended: false }));
 
-if (NODE_ENV === "development") {
+if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
@@ -31,7 +32,7 @@ app.get("/api/", (req, res) => {
   res.json({ msg: "API is running..." });
 });
 
-if (NODE_ENV === "production") {
+if (process.env.NODE_ENV === "production") {
   app.use(express.static(join(__dirname, "client", "build")));
 
   app.get("*", (req, res) => {
@@ -44,6 +45,8 @@ app.use("/api/projects", projectsRoutes);
 app.use("/api/skills", skillRoutes);
 
 app.listen(
-  PORT,
-  console.log(`Server is running in ${NODE_ENV} mode at port ${PORT}`)
+  process.env.PORT,
+  console.log(
+    `Server is running in ${process.env.NODE_ENV} mode at port ${process.env.PORT}`
+  )
 );
