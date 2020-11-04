@@ -1,13 +1,13 @@
-import express from "express";
-import { check } from "express-validator";
+const express = require("express");
+const { check } = require("express-validator");
 
-import {
+const {
   get_projects,
   post_project,
   delete_project,
   put_project,
-} from "../controllers/projects-controllers.js";
-import authMiddleware from "../middlewares/auth-middleware.js";
+} = require("../controllers/projects-controllers");
+const authMiddleware = require("../middlewares/auth-middleware");
 
 const router = express.Router();
 
@@ -38,4 +38,4 @@ router.put(
   put_project
 );
 
-export default router;
+module.exports = router;

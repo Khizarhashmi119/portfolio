@@ -1,21 +1,15 @@
-import { config } from "dotenv";
-import express from "express";
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
-import morgan from "morgan";
-
-import connectDB from "./db.js";
-import projectsRoutes from "./routes/projects-routes.js";
-import authRoutes from "./routes/auth-routes.js";
-import skillRoutes from "./routes/skill-routes.js";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const app = express();
-
 if (process.env.NODE_ENV === "development") {
-  config();
+  require("dotenv").config();
 }
+const express = require("express");
+const path = require("path");
+
+const connectDB = require("./db");
+const projectsRoutes = require("./routes/projects-routes");
+const authRoutes = require("./routes/auth-routes");
+const skillRoutes = require("./routes/skill-routes");
+
+const app = express();
 
 //* Connect to database.
 connectDB();
@@ -24,7 +18,7 @@ connectDB();
 app.use(express.json({ extended: false }));
 
 if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
+  app.use(require("morgan")("dev"));
 }
 
 //* API routes.
@@ -37,10 +31,10 @@ app.use("/api/projects", projectsRoutes);
 app.use("/api/skills", skillRoutes);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(join(__dirname, "client", "build")));
+  app.use(express.static(path.join(__dirname, "client", "build")));
 
   app.get("*", (req, res) => {
-    res.sendFile(join(__dirname, "client", "build", "index.html"));
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
   });
 }
 

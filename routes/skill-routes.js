@@ -1,13 +1,13 @@
-import express from "express";
-import { check } from "express-validator";
+const express = require("express");
+const { check } = require("express-validator");
 
-import authMiddleware from "../middlewares/auth-middleware.js";
-import {
+const authMiddleware = require("../middlewares/auth-middleware");
+const {
   get_skills,
   post_skill,
   delete_skill,
   put_skill,
-} from "../controllers/skills-controllers.js";
+} = require("../controllers/skills-controllers");
 
 const router = express.Router();
 
@@ -24,4 +24,4 @@ router.put(
   put_skill
 );
 
-export default router;
+module.exports = router;

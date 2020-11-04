@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
-import { v4 } from "uuid";
+const mongoose = require("mongoose");
+const { v4 } = require("uuid");
 
-import crypto from "crypto";
+const crypto = require("crypto");
 
 const Schema = mongoose.Schema;
 
@@ -50,4 +50,4 @@ adminSchema.virtual("password").set(function (password) {
   this.encryPassword = this.securePassword(password);
 });
 
-export default mongoose.model("Admin", adminSchema);
+module.exports = Admin = mongoose.model("Admin", adminSchema);

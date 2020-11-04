@@ -1,12 +1,9 @@
-import { config } from "dotenv";
-import { program } from "commander";
-import inquirer from "inquirer";
-import mongoose from "mongoose";
+require("dotenv").config();
+const { program } = require("commander");
+const { prompt } = require("inquirer");
+const mongoose = require("mongoose");
 
-import Admin from "./models/Admin.js";
-
-config();
-const { prompt } = inquirer;
+const Admin = require("./models/Admin");
 
 const conn = mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
