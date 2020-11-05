@@ -116,9 +116,9 @@ const HomePage = ({ changeTheme }) => {
             projects.length !== 0 ? (
               <Fragment>
                 <ProjectList projects={projects.slice(0, 3)} />
-                <Link className="projects-link" to="/projects">
-                  More projects
-                </Link>
+                <div className="projects-link">
+                  <Link to="/projects">More projects</Link>
+                </div>
               </Fragment>
             ) : (
               <h3 className="message">No project yet.</h3>

@@ -37,7 +37,7 @@ const LoginPage = () => {
     <main>
       <section id="login">
         <div className="container">
-          <h1>Login In</h1>
+          <h1 className="login-title">Login In</h1>
           <Alert />
           <form className="login-form" onSubmit={handleSubmit}>
             <label htmlFor="email">Email:</label>
