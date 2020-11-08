@@ -1,20 +1,19 @@
 {
   "name": "portfolio",
   "version": "1.0.0",
-  "description": "My portfolio",
-  "main": "app.js",
+  "description": "My portfolio website.",
+  "main": "server.js",
   "author": "Mohd. Khizar Hashmi",
   "license": "MIT",
   "scripts": {
-    "start": "node app",
-    "dev": "cross-env NODE_ENV='development' nodemon app",
+    "start": "node server",
+    "dev": "cross-env NODE_ENV='development' nodemon server",
     "client": "cd client && yarn start",
     "mern": "concurrently -n 'server,client' -c 'green,blue' \"yarn dev\" \"yarn client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && yarn install && yarn run build"
   },
   "dependencies": {
     "commander": "^6.1.0",
-    "cross-env": "^7.0.2",
     "express": "^4.17.1",
     "express-validator": "^6.6.1",
     "inquirer": "^7.3.3",
@@ -26,6 +25,7 @@
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
+    "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "nodemon": "^2.0.4"
   }
