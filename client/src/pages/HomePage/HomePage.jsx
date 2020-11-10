@@ -62,11 +62,6 @@ const HomePage = ({ changeTheme }) => {
                   data-theme="blue"
                   onClick={handleClick}
                 ></div>
-                <div
-                  className="theme-dot-3"
-                  data-theme="dark"
-                  onClick={handleClick}
-                ></div>
               </div>
               <p className="setting-note">
                 *theme setting will be save for your next visit.

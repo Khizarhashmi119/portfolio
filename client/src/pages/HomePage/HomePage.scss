@@ -112,14 +112,13 @@
 
 .name {
   color: var(--color-4);
-  font-family: "Russo One", sans-serif;
 }
 
 .theme-dots {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   margin: 1rem;
-  width: 200px;
+  width: 150px;
 }
 
 @mixin theme-dot($background-color) {
@@ -142,14 +141,6 @@
 
 .theme-dot-2 {
   @include theme-dot(#192734);
-
-  &:hover {
-    transform: scale(1.2);
-  }
-}
-
-.theme-dot-3 {
-  @include theme-dot(#212121);
 
   &:hover {
     transform: scale(1.2);
