@@ -13,6 +13,8 @@
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && yarn install && yarn run build"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^23.1.0",
+    "@ckeditor/ckeditor5-react": "^3.0.0",
     "commander": "^6.1.0",
     "express": "^4.17.1",
     "express-validator": "^6.6.1",

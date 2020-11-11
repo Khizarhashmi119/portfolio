@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import FileBase64 from "../FileBase64/FileBase64";
 
 import {
@@ -50,16 +52,23 @@ const ProjectForm = ({ type, project }) => {
         required
       />
       <label htmlFor="project-detail">Detail:</label>
-      <textarea
-        className="input-project-detail"
-        id="project-detail"
-        cols="30"
-        rows="3"
-        name="detail"
-        value={projectData.detail}
-        onChange={handleChange}
-        required
-      ></textarea>
+      <div className="input-project-detail">
+        <CKEditor
+          editor={ClassicEditor}
+          onReady={(editor) => {
+            editor.setData(projectData.detail);
+          }}
+          onChange={(e, editor) => {
+            const data = editor.getData();
+            setProjectData((prev) => {
+              return {
+                ...prev,
+                detail: data,
+              };
+            });
+          }}
+        />
+      </div>
       <label htmlFor="project-repo">Github repo:</label>
       <input
         className="input-project-repo"

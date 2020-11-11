@@ -33,7 +33,12 @@ const ProjectDetailPage = ({ match }) => {
                     </a>
                   )}
                 </div>
-                <p className="project-detail">{project.detail}</p>
+                <div
+                  className="project-detail"
+                  dangerouslySetInnerHTML={{
+                    __html: project.detail,
+                  }}
+                ></div>
                 <div className="project-date">
                   Date:{" "}
                   <Moment
