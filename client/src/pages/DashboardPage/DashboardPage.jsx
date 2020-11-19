@@ -4,7 +4,7 @@ import Alert from "../../components/Alert/Alert";
 import DashboardSkillsList from "../../components/DashboardSkillsList/DashboardSkillsList";
 import DashboardProjectsList from "../../components/DashboardProjectsList/DashboardProjectsList";
 
-import "./DashboardPage.scss";
+import "./DashboardPage.css";
 
 const DashboardPage = ({ history }) => {
   const handleClick1 = () => {

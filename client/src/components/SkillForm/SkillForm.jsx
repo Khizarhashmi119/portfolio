@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import { addSkillAction } from "../../store/actions/skillsActions";
 
-import "./SkillForm.scss";
+import "./SkillForm.css";
 
 const SkillForm = ({ type }) => {
   const [skillData, setSkillData] = useState({

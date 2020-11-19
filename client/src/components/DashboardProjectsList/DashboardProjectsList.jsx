@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import DashboardProject from "../DashboardProject/DashboardProject";
 
-import "./DashboardProjectsList.scss";
+import "./DashboardProjectsList.css";
 
 const DashboardProjectsList = () => {
   const { projects, loading } = useSelector((state) => state.projectsState);

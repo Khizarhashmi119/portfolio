@@ -6,7 +6,7 @@ import { authenticateAdminAction } from "../../store/actions/authActions";
 
 import Alert from "../../components/Alert/Alert";
 
-import "./LoginPage.scss";
+import "./LoginPage.css";
 
 const LoginPage = () => {
   const [loginData, setLoginData] = useState({

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { deleteProjectAction } from "../../store/actions/projectsActions";
 
-import "./DashboardProject.scss";
+import "./DashboardProject.css";
 
 const DashboardProject = ({ history, id, title, index }) => {
   const dispatch = useDispatch();

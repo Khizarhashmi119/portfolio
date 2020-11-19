@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import Moment from "react-moment";
 
-import "./ProjectDetailPage.scss";
+import "./ProjectDetailPage.css";
 
 const ProjectDetailPage = ({ match }) => {
   const { projects, loading } = useSelector((state) => state.projectsState);
@@ -33,7 +33,12 @@ const ProjectDetailPage = ({ match }) => {
                     </a>
                   )}
                 </div>
-                <p className="project-detail">{project.detail}</p>
+                <div
+                  className="project-detail"
+                  dangerouslySetInnerHTML={{
+                    __html: project.detail,
+                  }}
+                ></div>
                 <div className="project-date">
                   Date:{" "}
                   <Moment

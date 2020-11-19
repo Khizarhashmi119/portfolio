@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import SkillsList from "../../components/SkillsList/SkillsList";
 import ProjectsList from "../../components/ProjectsList/ProjectsList";
 
-import "./HomePage.scss";
+import "./HomePage.css";
 
 const HomePage = ({ changeTheme }) => {
   const [contactData, setContactData] = useState({
@@ -76,7 +76,7 @@ const HomePage = ({ changeTheme }) => {
           <h2 className="about-title">More about me</h2>
           <p className="about-me">
             I'm a full-stack web developer lives in Delhi, India.
-            <br />I make web applications usually with Node.js and Express.js.
+            <br />I make web applications usually with React and Node.js.
             <br />
             Feel free to take a look at my projects.
           </p>

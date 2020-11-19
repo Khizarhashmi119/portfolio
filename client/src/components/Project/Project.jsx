@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 
-import "./Project.scss";
+import "./Project.css";
 
 const Project = ({ history, id, title, detail, image }) => {
   return (
@@ -11,7 +11,12 @@ const Project = ({ history, id, title, detail, image }) => {
     >
       <img className="project-preview-img" src={image} alt="Project" />
       <h3 className="project-preview-title">{title}</h3>
-      <p className="project-preview-detail">{detail.slice(0, 100)}</p>
+      <div
+        className="project-preview-detail"
+        dangerouslySetInnerHTML={{
+          __html: detail.slice(0, 100),
+        }}
+      ></div>
     </div>
   );
 };
