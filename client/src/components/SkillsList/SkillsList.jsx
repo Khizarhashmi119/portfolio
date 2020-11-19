@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import Skill from "../Skill/Skill";
 
-import "./SkillsList.scss";
+import "./SkillsList.css";
 
 const SkillsList = () => {
   const { skills, loading } = useSelector((state) => state.skillsState);

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import ProjectForm from "../../components/ProjectForm/ProjectForm";
 import Alert from "../../components/Alert/Alert";
 
-import "./UpdateProjectPage.scss";
+import "./UpdateProjectPage.css";
 
 const UpdateProjectPage = ({ match }) => {
   const { projects, loading } = useSelector((state) => state.projectsState);

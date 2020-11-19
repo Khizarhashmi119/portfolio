@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import ProjectsList from "../../components/ProjectsList/ProjectsList";
 
-import "./ProjectsPage.scss";
+import "./ProjectsPage.css";
 
 const ProjectsPage = () => {
   const { projects, loading } = useSelector((state) => state.projectsState);

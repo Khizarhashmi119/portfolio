@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 
-import "./Project.scss";
+import "./Project.css";
 
 const Project = ({ history, id, title, detail, image }) => {
   return (

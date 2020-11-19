@@ -19,7 +19,7 @@ import store from "./store/store";
 import { getProjectsAction } from "./store/actions/projectsActions";
 import { getSkillsAction } from "./store/actions/skillsActions";
 
-import "./App.scss";
+import "./App.css";
 
 const App = () => {
   useEffect(() => {

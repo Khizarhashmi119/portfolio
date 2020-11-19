@@ -3,7 +3,7 @@ import React from "react";
 import Alert from "../../components/Alert/Alert";
 import SkillForm from "../../components/SkillForm/SkillForm";
 
-import "./AddSkillPage.scss";
+import "./AddSkillPage.css";
 
 const AddSkillPage = () => {
   return (

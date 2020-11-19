@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, NavLink, withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import "./Header.scss";
+import "./Header.css";
 
 const Header = ({ history }) => {
   const [isNavbarActive, setIsNavbarActive] = useState(false);
@@ -22,7 +22,7 @@ const Header = ({ history }) => {
     <header id="header">
       <nav className="navbar">
         <Link className="logo" to="/">
-          <h1>Mohd. Khizar Hashmi</h1>
+          <h1>M.KH</h1>
         </Link>
         <ul className={`navbar-links ${isNavbarActive && "navbar-active"}`}>
           <li className="navbar-item">

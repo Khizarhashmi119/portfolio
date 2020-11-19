@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import Moment from "react-moment";
 
-import "./ProjectDetailPage.scss";
+import "./ProjectDetailPage.css";
 
 const ProjectDetailPage = ({ match }) => {
   const { projects, loading } = useSelector((state) => state.projectsState);

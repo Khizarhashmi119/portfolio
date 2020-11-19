@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import DashboardSkill from "../DashboardSkill/DashboardSkill";
 
-import "./DashboardSkillsList.scss";
+import "./DashboardSkillsList.css";
 
 const DashboardSkillsList = () => {
   const { skills, loading } = useSelector((state) => state.skillsState);

@@ -9,7 +9,7 @@ import {
   updateProjectAction,
 } from "../../store/actions/projectsActions";
 
-import "./ProjectForm.scss";
+import "./ProjectForm.css";
 
 const ProjectForm = ({ type, project }) => {
   const [projectData, setProjectData] = useState({

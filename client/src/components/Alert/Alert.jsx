@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 
-import "./Alert.scss";
+import "./Alert.css";
 
 const Alert = () => {
   const alertsState = useSelector((state) => state.alertsState);

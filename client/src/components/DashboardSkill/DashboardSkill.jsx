@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import { deleteSkillAction } from "../../store/actions/skillsActions";
 
-import "./DashboardSkill.scss";
+import "./DashboardSkill.css";
 
 const DashboardSkill = ({ id, skill }) => {
   const dispatch = useDispatch();

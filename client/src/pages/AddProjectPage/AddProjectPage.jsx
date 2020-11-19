@@ -3,7 +3,7 @@ import React from "react";
 import ProjectForm from "../../components/ProjectForm/ProjectForm";
 import Alert from "../../components/Alert/Alert";
 
-import "./AddProjectPage.scss";
+import "./AddProjectPage.css";
 
 const AddProjectPage = () => {
   return (

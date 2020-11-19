@@ -1,0 +1,24 @@
+.project-preview {
+  background-color: #fff;
+  border: 1px solid var(--color-3);
+  box-shadow: -2px 7px 21px -9px rgba(0, 0, 0, 0.75);
+  cursor: pointer;
+  height: 400px;
+  margin: 1rem;
+  overflow: hidden;
+  max-width: 310px;
+  min-width: 270px;
+}
+
+.project-preview-img {
+  border-bottom: 1px solid var(--color-3);
+  height: 40%;
+  width: 100%;
+}
+
+.project-preview-title,
+.project-preview-detail {
+  color: #000;
+  padding: 1rem 2rem;
+  text-align: left;
+}
