@@ -8,7 +8,10 @@
   padding: 3% 5%;
 }
 
-.dashboard-add-skill-btn-container,
+.dashboard-add-skill-form-container {
+  margin: 2rem 0;
+}
+
 .dashboard-add-project-btn-container {
   display: flex;
   justify-content: flex-start;

@@ -46,21 +46,6 @@ const addSkillAction = (skill) => {
       );
 
       dispatch({ type: "ADD_SKILL_SUCCESS", payload: response.data });
-      const alertId = v4();
-
-      dispatch({
-        type: "ADD_ALERT",
-        payload: {
-          id: alertId,
-          msg: "Skill added.",
-          type: "success",
-        },
-      });
-
-      setTimeout(
-        () => dispatch({ type: "DELETE_ALERT", payload: alertId }),
-        5000
-      );
     } catch (err) {
       const errors = err.response.data.errors;
 
@@ -119,60 +104,4 @@ const deleteSkillAction = (id) => {
   };
 };
 
-const updateSkillAction = (id, skill) => {
-  return async (dispatch) => {
-    try {
-      dispatch({ type: "UPDATE_SKILL" });
-
-      const response = await axios.put(`/api/skills/${id}`, skill, {
-        headers: {
-          "x-auth-token": localStorage.getItem("token"),
-        },
-      });
-
-      const alertId = v4();
-
-      dispatch({
-        type: "ADD_ALERT",
-        payload: {
-          id: alertId,
-          msg: "Skill updated.",
-          type: "success",
-        },
-      });
-
-      setTimeout(
-        () => dispatch({ type: "DELETE_ALERT", payload: alertId }),
-        5000
-      );
-
-      dispatch({ type: "UPDATE_SKILL_SUCCESS", payload: response.data });
-    } catch (err) {
-      const errors = err.response.data.errors;
-
-      if (errors && errors.length > 0) {
-        errors.forEach((error) => {
-          const alertId = v4();
-          dispatch({
-            type: "ADD_ALERT",
-            payload: { id: alertId, msg: error.msg, type: "error" },
-          });
-
-          setTimeout(
-            () => dispatch({ type: "DELETE_ALERT", payload: alertId }),
-            5000
-          );
-        });
-      }
-
-      dispatch({ type: "UPDATE_SKILL_FAIL", payload: errors || err });
-    }
-  };
-};
-
-export {
-  getSkillsAction,
-  addSkillAction,
-  deleteSkillAction,
-  updateSkillAction,
-};
+export { getSkillsAction, addSkillAction, deleteSkillAction };

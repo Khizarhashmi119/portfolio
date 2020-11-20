@@ -12,7 +12,6 @@ import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import AddProjectPage from "./pages/AddProjectPage/AddProjectPage";
 import UpdateProjectPage from "./pages/UpdateProjectPage/UpdateProjectPage";
-import AddSkillPage from "./pages/AddSkillPage/AddSkillPage";
 import Footer from "./components/Footer/Footer";
 import PageNotFoundPage from "./pages/PageNotFoundPage/PageNotFoundPage";
 import store from "./store/store";
@@ -55,7 +54,6 @@ const App = () => {
             path="/edit-project/:id"
             component={UpdateProjectPage}
           />
-          <PrivateRoute exact path="/add-skill" component={AddSkillPage} />
           <Route component={PageNotFoundPage} />
         </Switch>
         <Footer />

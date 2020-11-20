@@ -5,7 +5,7 @@ import { addSkillAction } from "../../store/actions/skillsActions";
 
 import "./SkillForm.css";
 
-const SkillForm = ({ type }) => {
+const SkillForm = () => {
   const [skillData, setSkillData] = useState("");
   const dispatch = useDispatch();
 
@@ -22,17 +22,17 @@ const SkillForm = ({ type }) => {
 
   return (
     <form className="skill-form" onSubmit={handleSubmit}>
-      <label htmlFor="skill">Skill:</label>
       <input
         className="input-skill"
         type="text"
         value={skillData}
         id="skill"
+        placeholder="Enter skill"
         required
         onChange={handleChange}
       />
-      <button className="skill-btn" type="submit">
-        {type}
+      <button className="skill-btn" disabled={!skillData} type="submit">
+        <i className="fas fa-plus"></i>
       </button>
     </form>
   );
