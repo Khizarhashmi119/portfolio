@@ -6,23 +6,18 @@ import { addSkillAction } from "../../store/actions/skillsActions";
 import "./SkillForm.css";
 
 const SkillForm = ({ type }) => {
-  const [skillData, setSkillData] = useState({
-    skill: "",
-    order: 0,
-  });
+  const [skillData, setSkillData] = useState("");
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setSkillData((prevState) => {
-      return { ...prevState, [name]: value };
-    });
+    const { value } = e.target;
+    setSkillData(value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addSkillAction(skillData));
+    setSkillData("");
   };
 
   return (
@@ -31,19 +26,9 @@ const SkillForm = ({ type }) => {
       <input
         className="input-skill"
         type="text"
-        name="skill"
-        value={skillData.skill}
+        value={skillData}
         id="skill"
         required
-        onChange={handleChange}
-      />
-      <label htmlFor="order">Order:</label>
-      <input
-        className="input-skill-order"
-        type="number"
-        name="order"
-        value={skillData.order}
-        id="order"
         onChange={handleChange}
       />
       <button className="skill-btn" type="submit">

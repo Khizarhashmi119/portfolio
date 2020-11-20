@@ -35,11 +35,15 @@ const addSkillAction = (skill) => {
     try {
       dispatch({ type: "ADD_SKILL" });
 
-      const response = await axios.post("/api/skills/create", skill, {
-        headers: {
-          "x-auth-token": localStorage.getItem("token"),
-        },
-      });
+      const response = await axios.post(
+        "/api/skills/create",
+        { skill },
+        {
+          headers: {
+            "x-auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
 
       dispatch({ type: "ADD_SKILL_SUCCESS", payload: response.data });
       const alertId = v4();

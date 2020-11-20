@@ -6,7 +6,7 @@ const Skill = require("../models/Skill");
 //* @access public
 const get_skills = async (req, res) => {
   try {
-    const skills = await Skill.find().sort({ order: 1 });
+    const skills = await Skill.find();
     return res.status(200).json(skills);
   } catch (err) {
     console.error(err);
@@ -26,13 +26,8 @@ const post_skill = async (req, res) => {
     return res.status(400).json({ errors: errs.array() });
   }
 
-  const { skill, order } = req.body;
   try {
-    const newSkill = new Skill({
-      skill,
-      order,
-    });
-
+    const newSkill = new Skill(req.body);
     await newSkill.save();
     return res.status(200).json(newSkill);
   } catch (err) {
@@ -59,31 +54,4 @@ const delete_skill = async (req, res) => {
   }
 };
 
-//* @route  /api/skills/:id
-//* @desc   Update skills.
-//* @access private
-const put_skill = async (req, res) => {
-  const errs = validationResult(req);
-
-  if (!errs.isEmpty()) {
-    return res.status(400).json({ errors: errs.array() });
-  }
-
-  const { id } = req.params;
-  const { skill } = req.body;
-  try {
-    const updatedSkill = await Skill.findByIdAndUpdate(
-      id,
-      { skill },
-      { new: true }
-    );
-    return res.status(200).json(updatedSkill);
-  } catch (err) {
-    console.error(err);
-    return res
-      .status(500)
-      .json({ errors: [{ msg: "Internal server error." }] });
-  }
-};
-
-module.exports = { get_skills, post_skill, delete_skill, put_skill };
+module.exports = { get_skills, post_skill, delete_skill };

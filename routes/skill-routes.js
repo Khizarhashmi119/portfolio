@@ -6,7 +6,6 @@ const {
   get_skills,
   post_skill,
   delete_skill,
-  put_skill,
 } = require("../controllers/skills-controllers");
 
 const router = express.Router();
@@ -18,10 +17,5 @@ router.post(
   post_skill
 );
 router.delete("/:id", authMiddleware, delete_skill);
-router.put(
-  "/:id",
-  [authMiddleware, [check("skill", "Skill is required.").notEmpty()]],
-  put_skill
-);
 
 module.exports = router;
