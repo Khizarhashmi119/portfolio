@@ -7,9 +7,9 @@
   "license": "MIT",
   "scripts": {
     "start": "node server",
-    "dev": "cross-env NODE_ENV='development' nodemon server",
+    "server": "cross-env NODE_ENV='development' nodemon server",
     "client": "cd client && yarn start",
-    "mern": "concurrently -n 'server,client' -c 'green,blue' \"yarn dev\" \"yarn client\"",
+    "mern": "concurrently -n 'server,client' -c 'green,blue' \"yarn server\" \"yarn client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client && yarn install && yarn run build"
   },
   "dependencies": {

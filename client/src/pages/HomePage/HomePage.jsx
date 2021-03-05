@@ -64,7 +64,7 @@ const HomePage = ({ changeTheme }) => {
                 ></div>
               </div>
               <p className="setting-note">
-                *theme setting will be save for your next visit.
+                <i>*theme setting will be save for your next visit.</i>
               </p>
             </div>
           </div>
