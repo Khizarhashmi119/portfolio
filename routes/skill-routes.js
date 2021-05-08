@@ -3,19 +3,19 @@ const { check } = require("express-validator");
 
 const authMiddleware = require("../middlewares/auth-middleware");
 const {
-  get_skills,
-  post_skill,
-  delete_skill,
+  getSkills,
+  addSkill,
+  deleteSkill,
 } = require("../controllers/skills-controllers");
 
 const router = express.Router();
 
-router.get("/", get_skills);
+router.get("/", getSkills);
 router.post(
   "/create",
   [authMiddleware, [check("skill", "Skill is required.").notEmpty()]],
-  post_skill
+  addSkill
 );
-router.delete("/:id", authMiddleware, delete_skill);
+router.delete("/:id", authMiddleware, deleteSkill);
 
 module.exports = router;

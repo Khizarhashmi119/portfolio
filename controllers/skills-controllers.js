@@ -4,7 +4,7 @@ const Skill = require("../models/Skill");
 //* @route  /api/skills
 //* @desc   Get skills.
 //* @access public
-const get_skills = async (req, res) => {
+const getSkills = async (req, res) => {
   try {
     const skills = await Skill.find();
     return res.status(200).json(skills);
@@ -16,10 +16,10 @@ const get_skills = async (req, res) => {
   }
 };
 
-//* @route  /api/skills/create
+//* @route  /api/skills/
 //* @desc   Add skill.
 //* @access public
-const post_skill = async (req, res) => {
+const addSkill = async (req, res) => {
   const errs = validationResult(req);
 
   if (!errs.isEmpty()) {
@@ -41,7 +41,7 @@ const post_skill = async (req, res) => {
 //* @route  /api/skills/:id
 //* @desc   Delete a skill.
 //* @access private
-const delete_skill = async (req, res) => {
+const deleteSkill = async (req, res) => {
   const { id } = req.params;
   try {
     await Skill.findByIdAndDelete(id);
@@ -54,4 +54,4 @@ const delete_skill = async (req, res) => {
   }
 };
 
-module.exports = { get_skills, post_skill, delete_skill };
+module.exports = { getSkills, addSkill, deleteSkill };

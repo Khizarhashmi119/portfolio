@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { addSkillAction } from "../../store/actions/skillsActions";
+import { addSkillAction } from "../../redux/actions/skillsActions";
 
 import "./SkillForm.css";
 

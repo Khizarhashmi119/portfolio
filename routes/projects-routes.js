@@ -2,18 +2,18 @@ const express = require("express");
 const { check } = require("express-validator");
 
 const {
-  get_projects,
-  post_project,
-  delete_project,
-  put_project,
+  getProjects,
+  addProject,
+  deleteProject,
+  updateProject,
 } = require("../controllers/projects-controllers");
 const authMiddleware = require("../middlewares/auth-middleware");
 
 const router = express.Router();
 
-router.get("/", get_projects);
+router.get("/", getProjects);
 router.post(
-  "/create",
+  "/",
   [
     authMiddleware,
     [
@@ -22,9 +22,9 @@ router.post(
       check("image", "Image is required.").notEmpty(),
     ],
   ],
-  post_project
+  addProject
 );
-router.delete("/:id", authMiddleware, delete_project);
+router.delete("/:id", authMiddleware, deleteProject);
 router.put(
   "/:id",
   [
@@ -35,7 +35,7 @@ router.put(
       check("image", "Image is required.").notEmpty(),
     ],
   ],
-  put_project
+  updateProject
 );
 
 module.exports = router;

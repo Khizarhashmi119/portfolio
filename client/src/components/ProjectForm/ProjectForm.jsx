@@ -7,7 +7,7 @@ import FileBase64 from "../FileBase64/FileBase64";
 import {
   addProjectAction,
   updateProjectAction,
-} from "../../store/actions/projectsActions";
+} from "../../redux/actions/projectsActions";
 
 import "./ProjectForm.css";
 

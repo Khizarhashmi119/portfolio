@@ -14,9 +14,9 @@ import AddProjectPage from "./pages/AddProjectPage/AddProjectPage";
 import UpdateProjectPage from "./pages/UpdateProjectPage/UpdateProjectPage";
 import Footer from "./components/Footer/Footer";
 import PageNotFoundPage from "./pages/PageNotFoundPage/PageNotFoundPage";
-import store from "./store/store";
-import { getProjectsAction } from "./store/actions/projectsActions";
-import { getSkillsAction } from "./store/actions/skillsActions";
+import store from "./redux/store";
+import { getProjectsAction } from "./redux/actions/projectsActions";
+import { getSkillsAction } from "./redux/actions/skillsActions";
 
 import "./App.css";
 

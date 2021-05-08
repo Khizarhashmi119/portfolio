@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { deleteProjectAction } from "../../store/actions/projectsActions";
+import { deleteProjectAction } from "../../redux/actions/projectsActions";
 
 import "./DashboardProject.css";
 

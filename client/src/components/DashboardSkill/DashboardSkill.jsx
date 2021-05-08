@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { deleteSkillAction } from "../../store/actions/skillsActions";
+import { deleteSkillAction } from "../../redux/actions/skillsActions";
 
 import "./DashboardSkill.css";
 

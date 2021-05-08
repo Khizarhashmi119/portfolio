@@ -29,7 +29,6 @@ program.version("1.0.0").description("Create admin CLI tool.");
 
 program
   .command("create-admin")
-  .alias("c")
   .description("Create admin.")
   .action(async () => {
     const answers = await prompt(questions);

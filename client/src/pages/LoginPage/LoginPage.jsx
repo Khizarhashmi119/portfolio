@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { authenticateAdminAction } from "../../store/actions/authActions";
+import { authenticateAdminAction } from "../../redux/actions/authActions";
 
 import Alert from "../../components/Alert/Alert";
 

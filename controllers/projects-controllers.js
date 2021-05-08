@@ -5,7 +5,7 @@ const Project = require("../models/Project");
 //* @route  /api/projects
 //* @desc   Get projects.
 //* @access public
-const get_projects = async (req, res) => {
+const getProjects = async (req, res) => {
   try {
     const projects = await Project.find().sort({ createdAt: -1 });
     return res.status(200).json(projects);
@@ -17,10 +17,10 @@ const get_projects = async (req, res) => {
   }
 };
 
-//* @route  /api/projects/create
+//* @route  /api/projects/
 //* @desc   Add project.
 //* @access private
-const post_project = async (req, res) => {
+const addProject = async (req, res) => {
   const errs = validationResult(req);
 
   if (!errs.isEmpty()) {
@@ -42,7 +42,7 @@ const post_project = async (req, res) => {
 //* @route  /api/projects/:id
 //* @desc   Delete a project.
 //* @access public
-const delete_project = async (req, res) => {
+const deleteProject = async (req, res) => {
   const { id } = req.params;
   try {
     await Project.findByIdAndRemove(id);
@@ -58,7 +58,7 @@ const delete_project = async (req, res) => {
 //* @route  /api/project/:id
 //* @desc   Update a project.
 //* @access public
-const put_project = async (req, res) => {
+const updateProject = async (req, res) => {
   const errs = validationResult(req);
 
   if (!errs.isEmpty()) {
@@ -81,4 +81,4 @@ const put_project = async (req, res) => {
   }
 };
 
-module.exports = { get_projects, post_project, delete_project, put_project };
+module.exports = { getProjects, addProject, deleteProject, updateProject };
