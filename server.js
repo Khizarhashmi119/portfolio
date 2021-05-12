@@ -11,17 +11,17 @@ const skillRoutes = require("./routes/skill-routes");
 
 const app = express();
 
-//* Connect to database.
+//  Connect to database.
 connectDB();
 
-//* Middlewares.
-app.use(express.json());
+//  Middlewares.
+app.use(express.json({ limit: "50mb" }));
 
 if (process.env.NODE_ENV === "development") {
   app.use(require("morgan")("dev"));
 }
 
-//* API routes.
+//  API routes.
 app.get("/api/", (req, res) => {
   res.json({ msg: "API is running..." });
 });

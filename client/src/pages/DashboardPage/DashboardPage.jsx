@@ -1,15 +1,18 @@
 import React from "react";
+import { useHistory } from "react-router";
 
-import Alert from "../../components/Alert/Alert";
-import SkillForm from "../../components/SkillForm/SkillForm";
-import DashboardSkillsList from "../../components/DashboardSkillsList/DashboardSkillsList";
-import DashboardProjectsList from "../../components/DashboardProjectsList/DashboardProjectsList";
+import Alert from "../../components/layoutComponents/Alert/Alert";
+import SkillForm from "../../components/skillComponents/SkillForm/SkillForm";
+import DashboardSkillsList from "../../components/dashboardComponents/DashboardSkillsList/DashboardSkillsList";
+import DashboardProjectsList from "../../components/dashboardComponents/DashboardProjectsList/DashboardProjectsList";
 
 import "./DashboardPage.css";
 
-const DashboardPage = ({ history }) => {
+const DashboardPage = () => {
+  const { push } = useHistory();
+
   const handleClick = () => {
-    history.push("/add-project");
+    push("/add-project");
   };
 
   return (

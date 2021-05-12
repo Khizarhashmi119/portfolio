@@ -1,10 +1,11 @@
 const { validationResult } = require("express-validator");
+const fs = require("fs");
 
 const Project = require("../models/Project");
 
-//* @route  /api/projects
-//* @desc   Get projects.
-//* @access public
+// @route  /api/projects
+// @desc   Get projects.
+// @access public
 const getProjects = async (req, res) => {
   try {
     const projects = await Project.find().sort({ createdAt: -1 });
@@ -17,9 +18,26 @@ const getProjects = async (req, res) => {
   }
 };
 
-//* @route  /api/projects/
-//* @desc   Add project.
-//* @access private
+// @route  /api/project/:id
+// @desc   Get project.
+// @access public
+const getProject = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const project = await Project.findById(id);
+    return res.status(200).json(project);
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .json({ errors: [{ msg: "Internal server error." }] });
+  }
+};
+
+// @route  /api/projects/
+// @desc   Add project.
+// @access private
 const addProject = async (req, res) => {
   const errs = validationResult(req);
 
@@ -27,8 +45,18 @@ const addProject = async (req, res) => {
     return res.status(400).json({ errors: errs.array() });
   }
 
+  const { title, detail, tags, repo, link } = req.body;
+  const { filename } = req.file;
+
   try {
-    const newProject = new Project(req.body);
+    const newProject = new Project({
+      title,
+      detail,
+      tags: tags.split(",").map((tag) => tag.trim()),
+      repo,
+      link,
+      image: filename,
+    });
     await newProject.save();
     return res.status(200).json(newProject);
   } catch (err) {
@@ -39,14 +67,24 @@ const addProject = async (req, res) => {
   }
 };
 
-//* @route  /api/projects/:id
-//* @desc   Delete a project.
-//* @access public
+// @route  /api/projects/:id
+// @desc   Delete a project.
+// @access public
 const deleteProject = async (req, res) => {
   const { id } = req.params;
   try {
-    await Project.findByIdAndRemove(id);
-    return res.status(200).json({ msg: "Project deleted." });
+    const project = await Project.findById(id);
+    const imagePath = `./client/public/uploads/${project.image}`;
+
+    if (fs.existsSync(imagePath)) {
+      fs.unlinkSync(imagePath);
+    }
+
+    await project.remove();
+
+    return res
+      .status(200)
+      .json({ messages: [{ msg: "Project has been deleted." }] });
   } catch (err) {
     console.error(err);
     return res
@@ -55,9 +93,9 @@ const deleteProject = async (req, res) => {
   }
 };
 
-//* @route  /api/project/:id
-//* @desc   Update a project.
-//* @access public
+// @route  /api/project/:id
+// @desc   Update a project.
+// @access public
 const updateProject = async (req, res) => {
   const errs = validationResult(req);
 
@@ -66,11 +104,53 @@ const updateProject = async (req, res) => {
   }
 
   const { id } = req.params;
+  const { title, detail, tags, repo, link } = req.body;
 
   try {
-    const updatedProject = await Project.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
+    if (req.file) {
+      const { filename } = req.file;
+      const project = await Project.findById(blogId);
+      const imagePath = `./client/public/uploads/${project.image}`;
+
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+      }
+
+      const updatedProject = await Project.findByIdAndUpdate(
+        id,
+        {
+          $set: {
+            title,
+            detail,
+            tags: tags.split(",").map((tag) => tag.trim()),
+            repo,
+            link,
+            image: filename,
+          },
+        },
+        {
+          new: true,
+        }
+      );
+
+      return res.status(200).json(updatedProject);
+    }
+
+    const updatedProject = await Project.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          title,
+          detail,
+          tags: tags.split(",").map((tag) => tag.trim()),
+          repo,
+          link,
+        },
+      },
+      {
+        new: true,
+      }
+    );
 
     return res.status(200).json(updatedProject);
   } catch (err) {
@@ -81,4 +161,10 @@ const updateProject = async (req, res) => {
   }
 };
 
-module.exports = { getProjects, addProject, deleteProject, updateProject };
+module.exports = {
+  getProjects,
+  getProject,
+  addProject,
+  deleteProject,
+  updateProject,
+};

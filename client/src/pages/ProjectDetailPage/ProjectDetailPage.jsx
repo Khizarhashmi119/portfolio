@@ -1,38 +1,48 @@
-import React, { Fragment } from "react";
-import { useSelector } from "react-redux";
+import React, { Fragment, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import Moment from "react-moment";
 
-import "./ProjectDetailPage.css";
+import { getProjectAction } from "../../redux/actions/projectsActions";
 
-const ProjectDetailPage = ({ match }) => {
-  const { projects, loading } = useSelector((state) => state.projectsState);
-  const project = projects.find(({ _id }) => match.params.id === _id);
+import "./ProjectDetailPage.css";
+import TagsList from "../../components/layoutComponents/TagsList/TagsList";
+
+const ProjectDetailPage = () => {
+  const { project, isLoading } = useSelector((state) => state.projectsState);
+  const dispatch = useDispatch();
+  const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(getProjectAction(id));
+  }, [dispatch, id]);
 
   return (
     <main>
       <section id="project-detail-page">
         <div className="container">
-          {!loading ? (
+          {!isLoading ? (
             project ? (
               <Fragment>
-                <img
-                  className="project-img"
-                  src={project.image}
-                  alt="Project"
-                />
-                <h2 className="project-title">{project.title}</h2>
                 <div className="project-links">
                   {project.repo && (
                     <a href={project.repo} className="project-link">
-                      Github repo
+                      <i className="fab fa-github"></i>
                     </a>
                   )}
                   {project.link && (
                     <a href={project.link} className="project-link">
-                      Project link
+                      <i className="fas fa-external-link-square-alt"></i>
                     </a>
                   )}
                 </div>
+                <img
+                  className="project-img"
+                  src={`/uploads/${project.image}`}
+                  alt="Project"
+                />
+                <h2 className="project-title">{project.title}</h2>
+                <TagsList tags={project.tags} />
                 <div
                   className="project-detail"
                   dangerouslySetInnerHTML={{

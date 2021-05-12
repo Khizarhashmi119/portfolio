@@ -2,19 +2,20 @@ import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import SkillsList from "../../components/SkillsList/SkillsList";
-import ProjectsList from "../../components/ProjectsList/ProjectsList";
+import SkillsList from "../../components/skillComponents/SkillsList/SkillsList";
+import ProjectsList from "../../components/projectComponents/ProjectsList/ProjectsList";
+import changeTheme from "../../utils/changeTheme";
 
 import "./HomePage.css";
 
-const HomePage = ({ changeTheme }) => {
+const HomePage = () => {
   const [contactData, setContactData] = useState({
     name: "",
     subject: "",
     email: "",
     message: "",
   });
-  const { projects, loading } = useSelector((state) => state.projectsState);
+  const { projects, isLoading } = useSelector((state) => state.projectsState);
 
   const handleClick = (e) => {
     const { theme } = e.target.dataset;
@@ -109,7 +110,7 @@ const HomePage = ({ changeTheme }) => {
       <section id="projects-preview">
         <div className="container">
           <h2 className="projects-preview-title">Some of my past projects.</h2>
-          {!loading ? (
+          {!isLoading ? (
             projects.length !== 0 ? (
               <Fragment>
                 <ProjectsList projects={projects.slice(0, 3)} />
