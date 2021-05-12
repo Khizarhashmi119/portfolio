@@ -74,50 +74,63 @@ const getProjectAction = (id) => async (dispatch) => {
   }
 };
 
-const addProjectAction = (project) => async (dispatch) => {
-  try {
-    dispatch({ type: ADD_PROJECT });
+const addProjectAction =
+  ({ title, detail, tags, repo, link, image }) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: ADD_PROJECT });
+      const project = new FormData();
+      project.append("title", title);
+      project.append("detail", detail);
+      project.append("repo", repo);
+      project.append("link", link);
+      project.append("tags", tags);
+      project.append("image", image);
 
-    const response = await axios.post("/api/projects/", project, {
-      headers: {
-        "x-auth-token": localStorage.getItem("token"),
-      },
-    });
-
-    dispatch({ type: ADD_PROJECT_SUCCESS, payload: response.data });
-    const alertId = v4();
-
-    dispatch({
-      type: ADD_ALERT,
-      payload: {
-        id: alertId,
-        msg: "Project added.",
-        type: "success",
-      },
-    });
-
-    setTimeout(() => dispatch({ type: DELETE_ALERT, payload: alertId }), 5000);
-  } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors && errors.length > 0) {
-      errors.forEach((error) => {
-        const alertId = v4();
-        dispatch({
-          type: ADD_ALERT,
-          payload: { id: alertId, msg: error.msg, type: "error" },
-        });
-
-        setTimeout(
-          () => dispatch({ type: DELETE_ALERT, payload: alertId }),
-          5000
-        );
+      const response = await axios.post("/api/projects/", project, {
+        headers: {
+          "x-auth-token": localStorage.getItem("token"),
+          "content-type": "multipart/form-data",
+        },
       });
-    }
 
-    dispatch({ type: ADD_PROJECT_FAIL, payload: errors || err });
-  }
-};
+      dispatch({ type: ADD_PROJECT_SUCCESS, payload: response.data });
+      const alertId = v4();
+
+      dispatch({
+        type: ADD_ALERT,
+        payload: {
+          id: alertId,
+          msg: "Project added.",
+          type: "success",
+        },
+      });
+
+      setTimeout(
+        () => dispatch({ type: DELETE_ALERT, payload: alertId }),
+        5000
+      );
+    } catch (err) {
+      const errors = err.response.data.errors;
+
+      if (errors && errors.length > 0) {
+        errors.forEach((error) => {
+          const alertId = v4();
+          dispatch({
+            type: ADD_ALERT,
+            payload: { id: alertId, msg: error.msg, type: "error" },
+          });
+
+          setTimeout(
+            () => dispatch({ type: DELETE_ALERT, payload: alertId }),
+            5000
+          );
+        });
+      }
+
+      dispatch({ type: ADD_PROJECT_FAIL, payload: errors || err });
+    }
+  };
 
 const deleteProjectAction = (id) => async (dispatch) => {
   try {
@@ -156,53 +169,66 @@ const deleteProjectAction = (id) => async (dispatch) => {
   }
 };
 
-const updateProjectAction = (id, project) => async (dispatch) => {
-  try {
-    dispatch({ type: UPDATE_PROJECT });
+const updateProjectAction =
+  (id, { title, detail, tags, repo, link, image }) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: UPDATE_PROJECT });
+      const project = new FormData();
+      project.append("title", title);
+      project.append("detail", detail);
+      project.append("repo", repo);
+      project.append("link", link);
+      project.append("tags", tags);
+      project.append("image", image);
 
-    const response = await axios.put(`/api/projects/${id}`, project, {
-      headers: {
-        "x-auth-token": localStorage.getItem("token"),
-      },
-    });
-
-    dispatch({
-      type: UPDATE_PROJECT_SUCCESS,
-      payload: { id, project: response.data },
-    });
-    const alertId = v4();
-
-    dispatch({
-      type: ADD_ALERT,
-      payload: {
-        id: alertId,
-        msg: "Project updated.",
-        type: "success",
-      },
-    });
-
-    setTimeout(() => dispatch({ type: DELETE_ALERT, payload: alertId }), 5000);
-  } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors && errors.length > 0) {
-      errors.forEach((error) => {
-        const alertId = v4();
-        dispatch({
-          type: ADD_ALERT,
-          payload: { id: alertId, msg: error.msg, type: "error" },
-        });
-
-        setTimeout(
-          () => dispatch({ type: DELETE_ALERT, payload: alertId }),
-          5000
-        );
+      const response = await axios.put(`/api/projects/${id}`, project, {
+        headers: {
+          "x-auth-token": localStorage.getItem("token"),
+          "content-type": "multipart/form-data",
+        },
       });
-    }
 
-    dispatch({ type: UPDATE_PROJECT_FAIL, payload: errors || err });
-  }
-};
+      dispatch({
+        type: UPDATE_PROJECT_SUCCESS,
+        payload: { id, project: response.data },
+      });
+      const alertId = v4();
+
+      dispatch({
+        type: ADD_ALERT,
+        payload: {
+          id: alertId,
+          msg: "Project updated.",
+          type: "success",
+        },
+      });
+
+      setTimeout(
+        () => dispatch({ type: DELETE_ALERT, payload: alertId }),
+        5000
+      );
+    } catch (err) {
+      const errors = err.response.data.errors;
+
+      if (errors && errors.length > 0) {
+        errors.forEach((error) => {
+          const alertId = v4();
+          dispatch({
+            type: ADD_ALERT,
+            payload: { id: alertId, msg: error.msg, type: "error" },
+          });
+
+          setTimeout(
+            () => dispatch({ type: DELETE_ALERT, payload: alertId }),
+            5000
+          );
+        });
+      }
+
+      dispatch({ type: UPDATE_PROJECT_FAIL, payload: errors || err });
+    }
+  };
 
 export {
   getProjectsAction,

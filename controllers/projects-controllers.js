@@ -1,4 +1,5 @@
 const { validationResult } = require("express-validator");
+const fs = require("fs");
 
 const Project = require("../models/Project");
 
@@ -44,7 +45,8 @@ const addProject = async (req, res) => {
     return res.status(400).json({ errors: errs.array() });
   }
 
-  const { title, detail, tags, repo, link, image } = req.body;
+  const { title, detail, tags, repo, link } = req.body;
+  const { filename } = req.file;
 
   try {
     const newProject = new Project({
@@ -53,7 +55,7 @@ const addProject = async (req, res) => {
       tags: tags.split(",").map((tag) => tag.trim()),
       repo,
       link,
-      image,
+      image: filename,
     });
     await newProject.save();
     return res.status(200).json(newProject);
@@ -71,8 +73,18 @@ const addProject = async (req, res) => {
 const deleteProject = async (req, res) => {
   const { id } = req.params;
   try {
-    await Project.findByIdAndRemove(id);
-    return res.status(200).json({ msg: "Project deleted." });
+    const project = await Project.findById(id);
+    const imagePath = `./client/public/uploads/${project.image}`;
+
+    if (fs.existsSync(imagePath)) {
+      fs.unlinkSync(imagePath);
+    }
+
+    await project.remove();
+
+    return res
+      .status(200)
+      .json({ messages: [{ msg: "Project has been deleted." }] });
   } catch (err) {
     console.error(err);
     return res
@@ -92,9 +104,38 @@ const updateProject = async (req, res) => {
   }
 
   const { id } = req.params;
-  const { title, detail, tags, repo, link, image } = req.body;
+  const { title, detail, tags, repo, link } = req.body;
 
   try {
+    if (req.file) {
+      const { filename } = req.file;
+      const project = await Project.findById(blogId);
+      const imagePath = `./client/public/uploads/${project.image}`;
+
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+      }
+
+      const updatedProject = await Project.findByIdAndUpdate(
+        id,
+        {
+          $set: {
+            title,
+            detail,
+            tags: tags.split(",").map((tag) => tag.trim()),
+            repo,
+            link,
+            image: filename,
+          },
+        },
+        {
+          new: true,
+        }
+      );
+
+      return res.status(200).json(updatedProject);
+    }
+
     const updatedProject = await Project.findByIdAndUpdate(
       id,
       {
@@ -104,7 +145,6 @@ const updateProject = async (req, res) => {
           tags: tags.split(",").map((tag) => tag.trim()),
           repo,
           link,
-          image,
         },
       },
       {

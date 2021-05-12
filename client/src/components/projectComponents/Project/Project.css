@@ -14,6 +14,7 @@
 .project-preview-img {
   border-bottom: 1px solid var(--color-3);
   height: 50%;
+  object-fit: cover;
   width: 100%;
 }
 

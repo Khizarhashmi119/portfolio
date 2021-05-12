@@ -38,7 +38,7 @@ const ProjectDetailPage = () => {
                 </div>
                 <img
                   className="project-img"
-                  src={project.image}
+                  src={`/uploads/${project.image}`}
                   alt="Project"
                 />
                 <h2 className="project-title">{project.title}</h2>

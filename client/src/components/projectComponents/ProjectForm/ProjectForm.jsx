@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Editor } from "@tinymce/tinymce-react";
-import FileBase64 from "../../layoutComponents/FileBase64/FileBase64";
 
 import {
   addProjectAction,
@@ -17,7 +16,7 @@ const ProjectForm = ({ type, project }) => {
     tags: type === "update" ? project.tags.join(",") : "",
     repo: type === "update" ? project.repo : "",
     link: type === "update" ? project.link : "",
-    image: type === "update" ? project.image : "",
+    image: null,
   });
   const { isLoading } = useSelector((state) => state.projectsState);
   const dispatch = useDispatch();
@@ -34,13 +33,20 @@ const ProjectForm = ({ type, project }) => {
     });
   };
 
-  const handleEditorChange = (content, editor) => {
+  const editorhandleChange = (content, editor) => {
     setProjectFormData((prev) => {
       return {
         ...prev,
         detail: content,
       };
     });
+  };
+
+  const fileInputHandleChange = (e) => {
+    setProjectFormData((prevState) => ({
+      ...prevState,
+      image: e.target.files[0],
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -109,15 +115,14 @@ const ProjectForm = ({ type, project }) => {
           toolbar: `undo redo | formatselect | bold italic backcolor | codesample image media | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | "removeformat | preview | help`,
         }}
         value={detail}
-        onEditorChange={handleEditorChange}
+        onEditorChange={editorhandleChange}
       />
       <div className="file-input-container">
-        <FileBase64
+        <input
           id="project-image"
           className="input-project-image"
-          onDone={(fileDataURL) =>
-            setProjectFormData({ ...projectFormData, image: fileDataURL })
-          }
+          type="file"
+          onChange={fileInputHandleChange}
         />
       </div>
     </form>
