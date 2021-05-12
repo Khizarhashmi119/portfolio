@@ -1,26 +1,18 @@
 import React, { useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
-import { Provider } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import changeTheme from "./utils/changeTheme";
-import Header from "./components/Header/Header";
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import HomePage from "./pages/HomePage/HomePage";
-import ProjectsPage from "./pages/ProjectsPage/ProjectsPage";
-import ProjectDetailPage from "./pages/ProjectDetailPage/ProjectDetailPage";
-import DashboardPage from "./pages/DashboardPage/DashboardPage";
-import LoginPage from "./pages/LoginPage/LoginPage";
-import AddProjectPage from "./pages/AddProjectPage/AddProjectPage";
-import UpdateProjectPage from "./pages/UpdateProjectPage/UpdateProjectPage";
-import Footer from "./components/Footer/Footer";
-import PageNotFoundPage from "./pages/PageNotFoundPage/PageNotFoundPage";
-import store from "./redux/store";
+import Header from "./components/layoutComponents/Header/Header";
+import Footer from "./components/layoutComponents/Footer/Footer";
+import Routes from "./components/routingComponents/Routes/Routes";
 import { getProjectsAction } from "./redux/actions/projectsActions";
 import { getSkillsAction } from "./redux/actions/skillsActions";
 
 import "./App.css";
 
 const App = () => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const theme = localStorage.getItem("theme");
 
@@ -28,37 +20,16 @@ const App = () => {
       changeTheme(theme);
     }
 
-    store.dispatch(getSkillsAction());
-    store.dispatch(getProjectsAction());
-  }, []);
+    dispatch(getSkillsAction());
+    dispatch(getProjectsAction());
+  }, [dispatch]);
 
   return (
-    <Provider store={store}>
-      <div className="app">
-        <Header />
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={(props) => (
-              <HomePage {...props} changeTheme={changeTheme} />
-            )}
-          />
-          <Route exact path="/projects" component={ProjectsPage} />
-          <Route exact path="/projects/:id" component={ProjectDetailPage} />
-          <Route exact path="/login" component={LoginPage} />
-          <PrivateRoute exact path="/dashboard" component={DashboardPage} />
-          <PrivateRoute exact path="/add-project" component={AddProjectPage} />
-          <PrivateRoute
-            exact
-            path="/edit-project/:id"
-            component={UpdateProjectPage}
-          />
-          <Route component={PageNotFoundPage} />
-        </Switch>
-        <Footer />
-      </div>
-    </Provider>
+    <div className="app">
+      <Header />
+      <Routes />
+      <Footer />
+    </div>
   );
 };
 

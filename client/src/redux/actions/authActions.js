@@ -1,41 +1,43 @@
 import axios from "axios";
 import { v4 } from "uuid";
 
-const authenticateAdminAction = (email, password) => {
-  return async (dispatch) => {
-    try {
-      dispatch({ type: "AUTHENTICATE_ADMIN" });
+import {
+  AUTHENTICATE_ADMIN,
+  AUTHENTICATE_ADMIN_SUCCESS,
+  AUTHENTICATE_ADMIN_FAIL,
+} from "../actionTypes/authActionTypes";
+import { ADD_ALERT, DELETE_ALERT } from "../actionTypes/alertsActionTypes";
 
-      const response = await axios.post("/api/auth/login", {
-        email,
-        password,
-      });
+const authenticateAdminAction = (email, password) => async (dispatch) => {
+  try {
+    dispatch({ type: AUTHENTICATE_ADMIN });
 
-      dispatch({
-        type: "AUTHENTICATE_ADMIN_SUCCESS",
-        payload: response.data.token,
-      });
-    } catch (err) {
-      const errors = err.response.data.errors;
+    const response = await axios.post("/api/auth/login", {
+      email,
+      password,
+    });
 
-      if (errors.length > 0) {
-        errors.forEach((error) => {
-          const id = v4();
-          dispatch({
-            type: "ADD_ALERT",
-            payload: { id, msg: error.msg, type: "error" },
-          });
+    dispatch({
+      type: AUTHENTICATE_ADMIN_SUCCESS,
+      payload: response.data.token,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
 
-          setTimeout(
-            () => dispatch({ type: "DELETE_ALERT", payload: id }),
-            5000
-          );
+    if (errors.length > 0) {
+      errors.forEach((error) => {
+        const id = v4();
+        dispatch({
+          type: ADD_ALERT,
+          payload: { id, msg: error.msg, type: "error" },
         });
-      }
 
-      dispatch({ type: "AUTHENTICATE_ADMIN_FAIL", payload: errors });
+        setTimeout(() => dispatch({ type: DELETE_ALERT, payload: id }), 5000);
+      });
     }
-  };
+
+    dispatch({ type: AUTHENTICATE_ADMIN_FAIL, payload: errors });
+  }
 };
 
 export { authenticateAdminAction };

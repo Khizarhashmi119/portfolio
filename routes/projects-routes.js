@@ -3,6 +3,7 @@ const { check } = require("express-validator");
 
 const {
   getProjects,
+  getProject,
   addProject,
   deleteProject,
   updateProject,
@@ -12,28 +13,25 @@ const authMiddleware = require("../middlewares/auth-middleware");
 const router = express.Router();
 
 router.get("/", getProjects);
+router.get("/:id", getProject);
 router.post(
   "/",
+  authMiddleware,
   [
-    authMiddleware,
-    [
-      check("title", "Title is required.").notEmpty(),
-      check("detail", "Detail is required.").notEmpty(),
-      check("image", "Image is required.").notEmpty(),
-    ],
+    check("title", "Title is required.").notEmpty(),
+    check("detail", "Detail is required.").notEmpty(),
+    check("image", "Image is required.").notEmpty(),
   ],
   addProject
 );
 router.delete("/:id", authMiddleware, deleteProject);
 router.put(
   "/:id",
+  authMiddleware,
   [
-    authMiddleware,
-    [
-      check("title", "Title is required.").notEmpty(),
-      check("detail", "Detail is required.").notEmpty(),
-      check("image", "Image is required.").notEmpty(),
-    ],
+    check("title", "Title is required.").notEmpty(),
+    check("detail", "Detail is required.").notEmpty(),
+    check("image", "Image is required.").notEmpty(),
   ],
   updateProject
 );

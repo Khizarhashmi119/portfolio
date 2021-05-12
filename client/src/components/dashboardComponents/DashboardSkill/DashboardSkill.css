@@ -1,0 +1,17 @@
+.dashboard-skill {
+  background-color: var(--color-4);
+  border-radius: 25px/25px;
+  box-shadow: -2px 7px 21px -9px rgba(0, 0, 0, 0.75);
+  font-size: 1.1rem;
+  margin: 0.4rem;
+  padding: 0.5rem 1rem;
+}
+
+.delete-skill-icon {
+  cursor: pointer;
+  transition: transform 1s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+}
+
+.delete-skill-icon:hover {
+  transform: rotate(90deg);
+}
