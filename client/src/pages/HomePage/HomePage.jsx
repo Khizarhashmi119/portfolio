@@ -1,10 +1,14 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { v4 } from "uuid";
 
-import SkillsList from "../../components/skillComponents/SkillsList/SkillsList";
-import ProjectsList from "../../components/projectComponents/ProjectsList/ProjectsList";
+import SkillsList from "../../components/SkillsList/SkillsList";
+import ProjectPreviewsList from "../../components/ProjectPreviewsList/ProjectPreviewsList";
+import Alerts from "../../components/Alerts/Alerts";
 import changeTheme from "../../utils/changeTheme";
+import * as alertsActionTypes from "../../redux/actionTypes/alertsActionTypes";
 
 import "./HomePage.css";
 
@@ -16,6 +20,8 @@ const HomePage = () => {
     message: "",
   });
   const { projects, isLoading } = useSelector((state) => state.projectsState);
+  const dispatch = useDispatch();
+  const { name, email, subject, message } = contactData;
 
   const handleClick = (e) => {
     const { theme } = e.target.dataset;
@@ -32,9 +38,68 @@ const HomePage = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    const baseURL =
+      process.env.NODE_ENV === "production"
+        ? "/api/v1"
+        : "http://localhost:5000/api/v1";
+    const alertId = v4();
+
     e.preventDefault();
-    console.log(contactData);
+
+    try {
+      const response = await axios.post(`${baseURL}/contact`, {
+        name,
+        email,
+        subject,
+        message,
+      });
+
+      setContactData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+
+      dispatch({
+        type: alertsActionTypes.ADD_ALERT,
+        alert: {
+          id: alertId,
+          msg: response.data.msg,
+          type: "success",
+        },
+      });
+
+      setTimeout(
+        () =>
+          dispatch({
+            type: alertsActionTypes.DELETE_ALERT,
+            id: alertId,
+          }),
+        5000
+      );
+    } catch (err) {
+      const alertId = v4();
+
+      dispatch({
+        type: alertsActionTypes.ADD_ALERT,
+        alert: {
+          id: alertId,
+          msg: "Internal server error",
+          type: "error",
+        },
+      });
+
+      setTimeout(
+        () =>
+          dispatch({
+            type: alertsActionTypes.DELETE_ALERT,
+            id: alertId,
+          }),
+        5000
+      );
+    }
   };
 
   return (
@@ -71,7 +136,6 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
       <section id="about">
         <div className="container">
           <h2 className="about-title">More about me</h2>
@@ -106,15 +170,14 @@ const HomePage = () => {
           <SkillsList />
         </div>
       </section>
-
       <section id="projects-preview">
         <div className="container">
           <h2 className="projects-preview-title">Some of my past projects.</h2>
           {!isLoading ? (
             projects.length !== 0 ? (
               <Fragment>
-                <ProjectsList projects={projects.slice(0, 3)} />
-                <div className="projects-link">
+                <ProjectPreviewsList projects={projects.slice(0, 2)} />
+                <div className="projects-page-link">
                   <Link to="/projects">More projects</Link>
                 </div>
               </Fragment>
@@ -126,47 +189,51 @@ const HomePage = () => {
           )}
         </div>
       </section>
-
       <section id="contact">
         <div className="container">
           <h2 className="contact-title">Contact me</h2>
+          <Alerts />
           <form className="contact-form" onSubmit={handleSubmit}>
             <label htmlFor="name">Name:</label>
             <input
+              id="name"
               className="contact-input-name"
               type="text"
               name="name"
-              id="name"
-              required
+              value={name}
               onChange={handleChange}
-            />
-            <label htmlFor="subject">Subject:</label>
-            <input
-              className="contact-input-subject"
-              type="text"
-              name="subject"
-              id="subject"
               required
-              onChange={handleChange}
             />
             <label htmlFor="email">Email:</label>
             <input
+              id="email"
               className="contact-input-email"
               type="email"
               name="email"
-              id="email"
-              required
+              value={email}
               onChange={handleChange}
+              required
+            />
+            <label htmlFor="subject">Subject:</label>
+            <input
+              id="subject"
+              className="contact-input-subject"
+              type="text"
+              name="subject"
+              value={subject}
+              onChange={handleChange}
+              required
             />
             <label htmlFor="message">Message:</label>
             <textarea
+              id="message"
               className="contact-message"
               name="message"
-              id="message"
+              value={message}
               cols="30"
               rows="7"
-              required
               onChange={handleChange}
+              required
             ></textarea>
             <button className="contact-btn" type="submit">
               Send

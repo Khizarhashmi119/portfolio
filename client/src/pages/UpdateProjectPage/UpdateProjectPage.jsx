@@ -3,8 +3,8 @@ import { useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 
 import { getProjectAction } from "../../redux/actions/projectsActions";
-import ProjectForm from "../../components/projectComponents/ProjectForm/ProjectForm";
-import Alert from "../../components/layoutComponents/Alert/Alert";
+import ProjectForm from "../../components/ProjectForm/ProjectForm";
+import Alerts from "../../components/Alerts/Alerts";
 
 import "./UpdateProjectPage.css";
 
@@ -21,7 +21,7 @@ const UpdateProjectPage = () => {
     <section id="update-project">
       <div className="container">
         <h1 className="edit-project-title">Edit project</h1>
-        <Alert />
+        <Alerts />
         {!isLoading ? (
           project ? (
             <ProjectForm type="update" project={project} />

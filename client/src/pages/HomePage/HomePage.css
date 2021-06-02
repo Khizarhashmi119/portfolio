@@ -1,5 +1,5 @@
-/** Title styles start */
 #title {
+  background-color: var(--color-1);
   border-bottom: 1px solid var(--color-3);
   height: 600px;
 }
@@ -17,6 +17,7 @@
 
 .terminal-top {
   align-items: center;
+  background-color: var(--color-1);
   border-top: 1px solid var(--color-3);
   border-left: 1px solid var(--color-3);
   border-right: 1px solid var(--color-3);
@@ -113,9 +114,7 @@
   margin: 1rem;
   width: 60%;
 }
-/** Title styles end */
 
-/** About styles start */
 #about {
   background-color: var(--color-2);
   border-bottom: 1px solid var(--color-3);
@@ -144,32 +143,27 @@
 .skills-title {
   margin: 2rem 0;
 }
-/** About styles end */
 
-/** Project-preview styles start */
 #projects-preview {
   background-color: var(--color-1);
   border-bottom: 1px solid var(--color-3);
 }
 
-#project-preview .container {
+#projects-preview .container {
   padding: 3% 5%;
+  margin: auto;
+  text-align: center;
+  width: 88%;
 }
 
 .projects-preview-title {
   margin: 2rem 0;
 }
 
-.message {
-  margin: 2rem;
-}
-
-.projects-link {
+.projects-page-link {
   margin: 2rem 0;
 }
-/** Project-preview styles end */
 
-/** Contact styles start */
 #contact {
   background-color: var(--color-2);
   border-bottom: 1px solid var(--color-3);
@@ -246,4 +240,3 @@
   padding: 10px 20px;
   width: 100%;
 }
-/** Contact styles end */

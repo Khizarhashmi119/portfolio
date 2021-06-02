@@ -1,7 +1,7 @@
 import React from "react";
 
-import ProjectForm from "../../components/projectComponents/ProjectForm/ProjectForm";
-import Alert from "../../components/layoutComponents/Alert/Alert";
+import ProjectForm from "../../components/ProjectForm/ProjectForm";
+import Alerts from "../../components/Alerts/Alerts";
 
 import "./AddProjectPage.css";
 
@@ -10,7 +10,7 @@ const AddProjectPage = () => {
     <section id="add-project">
       <div className="container">
         <h1 className="add-project-title">Add project</h1>
-        <Alert />
+        <Alerts />
         <ProjectForm type="add" />
       </div>
     </section>

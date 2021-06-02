@@ -10,6 +10,7 @@ const changeTheme = (theme) => {
       html.style.setProperty("--color-3", "#c1c1c1");
       html.style.setProperty("--color-4", "#8d897d");
       html.style.setProperty("--color-5", "#f0ead6");
+      html.style.setProperty("--color-6", "#cecacf");
 
       break;
     default:
@@ -20,6 +21,7 @@ const changeTheme = (theme) => {
       html.style.setProperty("--color-3", "#164d56");
       html.style.setProperty("--color-4", "#1d6772");
       html.style.setProperty("--color-5", "#111921");
+      html.style.setProperty("--color-6", "#51929c");
   }
 };
 

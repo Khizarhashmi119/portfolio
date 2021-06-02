@@ -1,42 +1,33 @@
-if (process.env.NODE_ENV === "development") {
-  require("dotenv").config();
-}
 const express = require("express");
-const path = require("path");
+const dotenv = require("dotenv");
+const cors = require("cors");
 
 const connectDB = require("./db");
-const projectsRoutes = require("./routes/projects-routes");
-const authRoutes = require("./routes/auth-routes");
-const skillRoutes = require("./routes/skill-routes");
+const projectsRoutes = require("./routes/api/v1/projects-routes");
+const authRoutes = require("./routes/api/v1/auth-routes");
+const skillRoutes = require("./routes/api/v1/skill-routes");
+const contactRoutes = require("./routes/api/v1/contact-routes");
 
 const app = express();
 
-//  Connect to database.
+dotenv.config();
+// Connect to database.
 connectDB();
 
-//  Middlewares.
-app.use(express.json({ limit: "50mb" }));
+// Middlewares.
+app.use(cors());
+app.use(express.json());
+app.use("/api/v1", express.static("uploads"));
 
 if (process.env.NODE_ENV === "development") {
   app.use(require("morgan")("dev"));
 }
 
-//  API routes.
-app.get("/api/", (req, res) => {
-  res.json({ msg: "API is running..." });
-});
-
-app.use("/api/auth", authRoutes);
-app.use("/api/projects", projectsRoutes);
-app.use("/api/skills", skillRoutes);
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client", "build")));
-
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-  });
-}
+// API routes.
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/projects", projectsRoutes);
+app.use("/api/v1/skills", skillRoutes);
+app.use("/api/v1/contact", contactRoutes);
 
 app.listen(process.env.PORT, () =>
   console.log(

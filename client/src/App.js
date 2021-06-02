@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import Routes from "./components/Routes/Routes";
 import changeTheme from "./utils/changeTheme";
-import Header from "./components/layoutComponents/Header/Header";
-import Footer from "./components/layoutComponents/Footer/Footer";
-import Routes from "./components/routingComponents/Routes/Routes";
+import { setTokenAction } from "./redux/actions/authActions";
 import { getProjectsAction } from "./redux/actions/projectsActions";
 import { getSkillsAction } from "./redux/actions/skillsActions";
 
@@ -15,11 +16,10 @@ const App = () => {
 
   useEffect(() => {
     const theme = localStorage.getItem("theme");
+    const token = localStorage.getItem("token");
 
-    if (theme) {
-      changeTheme(theme);
-    }
-
+    theme && changeTheme(theme);
+    token && dispatch(setTokenAction(token));
     dispatch(getSkillsAction());
     dispatch(getProjectsAction());
   }, [dispatch]);

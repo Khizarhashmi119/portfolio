@@ -1,10 +1,10 @@
 import React from "react";
 import { useHistory } from "react-router";
 
-import Alert from "../../components/layoutComponents/Alert/Alert";
-import SkillForm from "../../components/skillComponents/SkillForm/SkillForm";
-import DashboardSkillsList from "../../components/dashboardComponents/DashboardSkillsList/DashboardSkillsList";
-import DashboardProjectsList from "../../components/dashboardComponents/DashboardProjectsList/DashboardProjectsList";
+import Alerts from "../../components/Alerts/Alerts";
+import SkillForm from "../../components/SkillForm/SkillForm";
+import DashboardSkillsList from "../../components/DashboardSkillsList/DashboardSkillsList";
+import DashboardProjectsList from "../../components/DashboardProjectsList/DashboardProjectsList";
 
 import "./DashboardPage.css";
 
@@ -19,7 +19,7 @@ const DashboardPage = () => {
     <main>
       <section id="dashboard">
         <div className="container">
-          <Alert />
+          <Alerts />
           <div className="dashboard-add-skill-form-container">
             <SkillForm />
           </div>

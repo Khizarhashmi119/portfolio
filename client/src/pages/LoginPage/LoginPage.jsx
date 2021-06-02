@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { authenticateAdminAction } from "../../redux/actions/authActions";
-
-import Alert from "../../components/layoutComponents/Alert/Alert";
+import Alerts from "../../components/Alerts/Alerts";
+import { loginAdminAction } from "../../redux/actions/authActions";
 
 import "./LoginPage.css";
 
@@ -31,7 +30,7 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(authenticateAdminAction(email, password));
+    dispatch(loginAdminAction(email, password));
   };
 
   return !isAuthenticated ? (
@@ -39,7 +38,7 @@ const LoginPage = () => {
       <section id="login">
         <div className="container">
           <h1 className="login-title">Login In</h1>
-          <Alert />
+          <Alerts />
           <form className="login-form" onSubmit={handleSubmit}>
             <label htmlFor="email">Email:</label>
             <input

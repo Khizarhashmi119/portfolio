@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const skillSchema = new mongoose.Schema(
   {
-    skill: {
+    text: {
       type: String,
       required: true,
     },

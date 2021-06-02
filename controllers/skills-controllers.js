@@ -1,9 +1,9 @@
 const { validationResult } = require("express-validator");
 const Skill = require("../models/Skill");
 
-//* @route  /api/skills
-//* @desc   Get skills.
-//* @access public
+// @route  /api/v1/skills
+// @desc   Get skills.
+// @access public
 const getSkills = async (req, res) => {
   try {
     const skills = await Skill.find();
@@ -16,9 +16,9 @@ const getSkills = async (req, res) => {
   }
 };
 
-//* @route  /api/skills/
-//* @desc   Add skill.
-//* @access public
+// @route  /api/v1/skills/
+// @desc   Add skill.
+// @access public
 const addSkill = async (req, res) => {
   const errs = validationResult(req);
 
@@ -26,8 +26,13 @@ const addSkill = async (req, res) => {
     return res.status(400).json({ errors: errs.array() });
   }
 
+  const { skill } = req.body;
+
   try {
-    const newSkill = new Skill(req.body);
+    const newSkill = new Skill({
+      text: skill,
+    });
+
     await newSkill.save();
     return res.status(200).json(newSkill);
   } catch (err) {
@@ -38,14 +43,15 @@ const addSkill = async (req, res) => {
   }
 };
 
-//* @route  /api/skills/:id
-//* @desc   Delete a skill.
-//* @access private
+// @route  /api/v1/skills/:id
+// @desc   Delete a skill.
+// @access private
 const deleteSkill = async (req, res) => {
   const { id } = req.params;
+
   try {
     await Skill.findByIdAndDelete(id);
-    return res.status(200).json("Skill deleted.");
+    return res.status(200).json({ msg: "Skill successfully deleted." });
   } catch (err) {
     console.error(err);
     return res

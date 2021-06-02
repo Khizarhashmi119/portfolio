@@ -3,7 +3,7 @@ const fs = require("fs");
 
 const Project = require("../models/Project");
 
-// @route  /api/projects
+// @route  /api/v1/projects
 // @desc   Get projects.
 // @access public
 const getProjects = async (req, res) => {
@@ -18,7 +18,7 @@ const getProjects = async (req, res) => {
   }
 };
 
-// @route  /api/project/:id
+// @route  /api/v1/project/:id
 // @desc   Get project.
 // @access public
 const getProject = async (req, res) => {
@@ -35,7 +35,7 @@ const getProject = async (req, res) => {
   }
 };
 
-// @route  /api/projects/
+// @route  /api/v1/projects/
 // @desc   Add project.
 // @access private
 const addProject = async (req, res) => {
@@ -67,14 +67,14 @@ const addProject = async (req, res) => {
   }
 };
 
-// @route  /api/projects/:id
+// @route  /api/v1/projects/:id
 // @desc   Delete a project.
 // @access public
 const deleteProject = async (req, res) => {
   const { id } = req.params;
   try {
     const project = await Project.findById(id);
-    const imagePath = `./client/public/uploads/${project.image}`;
+    const imagePath = `./uploads/${project.image}`;
 
     if (fs.existsSync(imagePath)) {
       fs.unlinkSync(imagePath);
@@ -82,9 +82,7 @@ const deleteProject = async (req, res) => {
 
     await project.remove();
 
-    return res
-      .status(200)
-      .json({ messages: [{ msg: "Project has been deleted." }] });
+    return res.status(200).json({ msg: "Project successfully deleted." });
   } catch (err) {
     console.error(err);
     return res
@@ -93,7 +91,7 @@ const deleteProject = async (req, res) => {
   }
 };
 
-// @route  /api/project/:id
+// @route  /api/v1/project/:id
 // @desc   Update a project.
 // @access public
 const updateProject = async (req, res) => {
@@ -110,7 +108,7 @@ const updateProject = async (req, res) => {
     if (req.file) {
       const { filename } = req.file;
       const project = await Project.findById(blogId);
-      const imagePath = `./client/public/uploads/${project.image}`;
+      const imagePath = `./uploads/${project.image}`;
 
       if (fs.existsSync(imagePath)) {
         fs.unlinkSync(imagePath);

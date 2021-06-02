@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import ProjectsList from "../../components/projectComponents/ProjectsList/ProjectsList";
+import ProjectPreviewsList from "../../components/ProjectPreviewsList/ProjectPreviewsList";
 
 import "./ProjectsPage.css";
 
@@ -15,7 +15,7 @@ const ProjectsPage = () => {
           <h2 className="projects-title">My projects</h2>
           {!isLoading ? (
             projects.length !== 0 ? (
-              <ProjectsList projects={projects} />
+              <ProjectPreviewsList projects={projects} />
             ) : (
               <h3 className="message">No project yet.</h3>
             )

@@ -1,41 +1,40 @@
-import {
-  AUTHENTICATE_ADMIN,
-  AUTHENTICATE_ADMIN_SUCCESS,
-  AUTHENTICATE_ADMIN_FAIL,
-  LOGOUT,
-} from "../actionTypes/authActionTypes";
+import * as authActionTypes from "../actionTypes/authActionTypes";
 
 const initState = {
-  token: localStorage.getItem("token"),
-  isAuthenticated: !!localStorage.getItem("token"),
+  token: null,
+  isAuthenticated: false,
   isLoading: false,
-  errors: null,
+  errors: [],
 };
 
 const authReducer = (state = initState, action) => {
-  const { type, payload } = action;
-
-  switch (type) {
-    case AUTHENTICATE_ADMIN:
+  switch (action.type) {
+    case authActionTypes.SET_TOKEN:
+      return {
+        ...state,
+        token: action.token,
+        isAuthenticated: true,
+      };
+    case authActionTypes.LOGIN_ADMIN:
       return {
         ...state,
         isLoading: true,
       };
-    case AUTHENTICATE_ADMIN_SUCCESS:
-      localStorage.setItem("token", payload);
+    case authActionTypes.LOGIN_ADMIN_SUCCESS:
+      localStorage.setItem("token", action.token);
 
       return {
-        token: payload,
+        token: action.token,
         isAuthenticated: true,
         isLoading: false,
       };
-    case AUTHENTICATE_ADMIN_FAIL:
+    case authActionTypes.LOGIN_ADMIN_FAIL:
       return {
         ...state,
         isLoading: false,
-        errors: payload,
+        errors: action.errors,
       };
-    case LOGOUT:
+    case authActionTypes.LOGOUT_ADMIN:
       localStorage.removeItem("token");
 
       return {

@@ -3,9 +3,9 @@ const jwt = require("jsonwebtoken");
 
 const Admin = require("../models/Admin");
 
-//* @route  /api/auth/login
-//* @desc   Login controller.
-//* @access public
+// @route  /api/v1/auth/login
+// @desc   Login controller.
+// @access public
 const login = async (req, res) => {
   const errs = validationResult(req);
 

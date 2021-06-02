@@ -1,15 +1,19 @@
-import { ADD_ALERT, DELETE_ALERT } from "../actionTypes/alertsActionTypes";
+import * as alertsActionTypes from "../actionTypes/alertsActionTypes";
 
-const initState = [];
+const initState = {
+  alerts: [],
+};
 
 const alertsReducer = (state = initState, action) => {
-  const { type, payload } = action;
-
-  switch (type) {
-    case ADD_ALERT:
-      return [...state, payload];
-    case DELETE_ALERT:
-      return state.filter((alert) => alert.id !== payload);
+  switch (action.type) {
+    case alertsActionTypes.ADD_ALERT:
+      return {
+        alerts: [...state.alerts, action.alert],
+      };
+    case alertsActionTypes.DELETE_ALERT:
+      return {
+        alerts: state.alerts.filter((alert) => alert.id !== action.id),
+      };
     default:
       return state;
   }

@@ -1,58 +1,46 @@
-import {
-  GET_SKILLS,
-  ADD_SKILL,
-  DELETE_SKILL,
-  GET_SKILLS_SUCCESS,
-  ADD_SKILL_SUCCESS,
-  DELETE_SKILL_SUCCESS,
-  GET_SKILLS_FAIL,
-  ADD_SKILL_FAIL,
-  DELETE_SKILL_FAIL,
-} from "../actionTypes/skillsActionTypes";
+import * as skillsActionTypes from "../actionTypes/skillsActionTypes";
 
 const initState = {
   skills: [],
   isLoading: false,
-  errors: null,
+  errors: [],
 };
 
 const skillsReducer = (state = initState, action) => {
-  const { type, payload } = action;
-
-  switch (type) {
-    case GET_SKILLS:
-    case ADD_SKILL:
-    case DELETE_SKILL:
+  switch (action.type) {
+    case skillsActionTypes.GET_SKILLS:
+    case skillsActionTypes.ADD_SKILL:
+    case skillsActionTypes.DELETE_SKILL:
       return {
         ...state,
         isLoading: true,
       };
-    case GET_SKILLS_SUCCESS:
+    case skillsActionTypes.GET_SKILLS_SUCCESS:
       return {
         ...state,
-        skills: payload,
+        skills: action.skills,
         isLoading: false,
       };
-    case ADD_SKILL_SUCCESS:
+    case skillsActionTypes.ADD_SKILL_SUCCESS:
       return {
         ...state,
-        skills: [...state.skills, payload],
+        skills: [...state.skills, action.skill],
         isLoading: false,
         errors: null,
       };
-    case DELETE_SKILL_SUCCESS:
+    case skillsActionTypes.DELETE_SKILL_SUCCESS:
       return {
         ...state,
-        skills: state.skills.filter((project) => project._id !== payload),
+        skills: state.skills.filter((project) => project._id !== action.id),
         isLoading: false,
       };
-    case GET_SKILLS_FAIL:
-    case ADD_SKILL_FAIL:
-    case DELETE_SKILL_FAIL:
+    case skillsActionTypes.GET_SKILLS_FAIL:
+    case skillsActionTypes.ADD_SKILL_FAIL:
+    case skillsActionTypes.DELETE_SKILL_FAIL:
       return {
         ...state,
         isLoading: false,
-        errors: payload,
+        errors: action.errors,
       };
     default:
       return state;

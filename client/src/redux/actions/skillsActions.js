@@ -1,100 +1,205 @@
 import axios from "axios";
 import { v4 } from "uuid";
 
+import * as skillsActionTypes from "../actionTypes/skillsActionTypes";
+import * as alertsActionTypes from "../actionTypes/alertsActionTypes";
+
+const baseURL =
+  process.env.NODE_ENV === "production"
+    ? "/api/v1"
+    : "http://localhost:5000/api/v1";
+
 const getSkillsAction = () => async (dispatch) => {
   try {
-    dispatch({ type: "GET_SKILLS" });
-    const response = await axios.get("/api/skills/");
-    dispatch({ type: "GET_SKILLS_SUCCESS", payload: response.data });
-  } catch (err) {
-    const errors = err.response.data.errors;
+    dispatch({ type: skillsActionTypes.GET_SKILLS });
+    const response = await axios.get(`${baseURL}/skills/`);
 
-    if (errors && errors.length > 0) {
-      errors.forEach((error) => {
-        const alertId = v4();
-        dispatch({
-          type: "ADD_ALERT",
-          payload: { id: alertId, msg: error.msg, type: "error" },
+    dispatch({
+      type: skillsActionTypes.GET_SKILLS_SUCCESS,
+      skills: response.data,
+    });
+  } catch (err) {
+    if (err.response) {
+      const errors = err.response.data.errors;
+
+      errors.length &&
+        errors.forEach((error) => {
+          const alertId = v4();
+
+          dispatch({
+            type: alertsActionTypes.ADD_ALERT,
+            alert: { id: alertId, msg: error.msg, type: "error" },
+          });
+
+          setTimeout(
+            () =>
+              dispatch({
+                type: alertsActionTypes.DELETE_ALERT,
+                id: alertId,
+              }),
+            5000
+          );
         });
 
-        setTimeout(
-          () => dispatch({ type: "DELETE_ALERT", payload: alertId }),
-          5000
-        );
+      dispatch({
+        type: skillsActionTypes.GET_SKILLS_FAIL,
+        errors,
       });
+    } else if (err.request) {
+      console.log(err.request);
+    } else {
+      console.log(err.message);
     }
-
-    dispatch({ type: "GET_SKILLS_FAIL", payload: errors || err });
   }
 };
 
-const addSkillAction = (skill) => async (dispatch) => {
+const addSkillAction = (skill) => async (dispatch, getState) => {
+  const {
+    authState: { token },
+  } = getState();
+
   try {
-    dispatch({ type: "ADD_SKILL" });
+    dispatch({ type: skillsActionTypes.ADD_SKILL });
 
     const response = await axios.post(
-      "/api/skills/create",
+      `${baseURL}/skills/`,
       { skill },
       {
         headers: {
-          "x-auth-token": localStorage.getItem("token"),
+          "x-auth-token": token,
         },
       }
     );
 
-    dispatch({ type: "ADD_SKILL_SUCCESS", payload: response.data });
-  } catch (err) {
-    const errors = err.response.data.errors;
+    dispatch({
+      type: skillsActionTypes.ADD_SKILL_SUCCESS,
+      skill: response.data,
+    });
 
-    if (errors && errors.length > 0) {
-      errors.forEach((error) => {
-        const alertId = v4();
-        dispatch({
-          type: "ADD_ALERT",
-          payload: { id: alertId, msg: error.msg, type: "error" },
-        });
+    const alertId = v4();
 
-        setTimeout(
-          () => dispatch({ type: "DELETE_ALERT", payload: alertId }),
-          5000
-        );
-      });
-    }
-
-    dispatch({ type: "ADD_SKILL_FAIL", payload: errors || err });
-  }
-};
-
-const deleteSkillAction = (id) => async (dispatch) => {
-  try {
-    dispatch({ type: "DELETE_SKILL" });
-
-    await axios.delete(`/api/skills/${id}`, {
-      headers: {
-        "x-auth-token": localStorage.getItem("token"),
+    dispatch({
+      type: alertsActionTypes.ADD_ALERT,
+      alert: {
+        id: alertId,
+        msg: "Skill successfully added.",
+        type: "success",
       },
     });
 
-    dispatch({ type: "DELETE_SKILL_SUCCESS", payload: id });
-  } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors && errors.length > 0) {
-      errors.forEach((error) => {
-        const alertId = v4();
+    setTimeout(
+      () =>
         dispatch({
-          type: "ADD_ALERT",
-          payload: { id: alertId, msg: error.msg, type: "error" },
+          type: alertsActionTypes.DELETE_ALERT,
+          id: alertId,
+        }),
+      5000
+    );
+  } catch (err) {
+    if (err.response) {
+      const errors = err.response.data.errors;
+
+      errors.length &&
+        errors.forEach((error) => {
+          const alertId = v4();
+
+          dispatch({
+            type: alertsActionTypes.ADD_ALERT,
+            alert: { id: alertId, msg: error.msg, type: "error" },
+          });
+
+          setTimeout(
+            () =>
+              dispatch({
+                type: alertsActionTypes.DELETE_ALERT,
+                id: alertId,
+              }),
+            5000
+          );
         });
 
-        setTimeout(
-          () => dispatch({ type: "DELETE_ALERT", payload: alertId }),
-          5000
-        );
+      dispatch({
+        type: skillsActionTypes.ADD_SKILL_FAIL,
+        errors,
       });
+    } else if (err.request) {
+      console.log(err.request);
+    } else {
+      console.log(err.message);
     }
+  }
+};
 
-    dispatch({ type: "DELETE_SKILL_FAIL", payload: errors || err });
+const deleteSkillAction = (id) => async (dispatch, getState) => {
+  const {
+    authState: { token },
+  } = getState();
+
+  try {
+    dispatch({ type: skillsActionTypes.DELETE_SKILL });
+
+    await axios.delete(`${baseURL}/skills/${id}`, {
+      headers: {
+        "x-auth-token": token,
+      },
+    });
+
+    dispatch({
+      type: skillsActionTypes.DELETE_SKILL_SUCCESS,
+      id,
+    });
+
+    const alertId = v4();
+
+    dispatch({
+      type: alertsActionTypes.ADD_ALERT,
+      alert: {
+        id: alertId,
+        msg: "Skill successfully deleted.",
+        type: "success",
+      },
+    });
+
+    setTimeout(
+      () =>
+        dispatch({
+          type: alertsActionTypes.DELETE_ALERT,
+          id: alertId,
+        }),
+      5000
+    );
+  } catch (err) {
+    if (err.response) {
+      const errors = err.response.data.errors;
+
+      errors.length &&
+        errors.forEach((error) => {
+          const alertId = v4();
+
+          dispatch({
+            type: alertsActionTypes.ADD_ALERT,
+            alert: { id: alertId, msg: error.msg, type: "error" },
+          });
+
+          setTimeout(
+            () =>
+              dispatch({
+                type: alertsActionTypes.DELETE_ALERT,
+                id: alertId,
+              }),
+            5000
+          );
+        });
+
+      dispatch({
+        type: skillsActionTypes.DELETE_SKILL_FAIL,
+        errors,
+      });
+    } else if (err.request) {
+      console.log(err.request);
+    } else {
+      console.log(err.message);
+    }
   }
 };
 

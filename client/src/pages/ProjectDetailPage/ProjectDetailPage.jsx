@@ -6,7 +6,12 @@ import Moment from "react-moment";
 import { getProjectAction } from "../../redux/actions/projectsActions";
 
 import "./ProjectDetailPage.css";
-import TagsList from "../../components/layoutComponents/TagsList/TagsList";
+import TagsList from "../../components/TagsList/TagsList";
+
+const baseURL =
+  process.env.NODE_ENV === "production"
+    ? "/api/v1"
+    : "http://localhost:5000/api/v1";
 
 const ProjectDetailPage = () => {
   const { project, isLoading } = useSelector((state) => state.projectsState);
@@ -38,7 +43,7 @@ const ProjectDetailPage = () => {
                 </div>
                 <img
                   className="project-img"
-                  src={`/uploads/${project.image}`}
+                  src={`${baseURL}/${project.image}`}
                   alt="Project"
                 />
                 <h2 className="project-title">{project.title}</h2>
@@ -51,10 +56,7 @@ const ProjectDetailPage = () => {
                 ></div>
                 <div className="project-date">
                   Date:{" "}
-                  <Moment
-                    date={project.updatedAt}
-                    format="MMMM Do YYYY, h:mm:ss a"
-                  />
+                  <Moment date={project.updatedAt} format="MMMM Do YYYY" />
                 </div>
               </Fragment>
             ) : (
