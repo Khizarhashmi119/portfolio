@@ -14,10 +14,10 @@ const sendMessage = async (req, res) => {
 
   try {
     const msg = {
-      to: "khizarhashmi119@gmail.com",
+      to: "khizar@stepfunction.ai",
       from: {
-        name: "Mohd. Khizar Hashmi (Portfolio)",
-        email: "khizarhashmi118@outlook.com",
+        name: "Mohd. Khizar Hashmi",
+        email: "khizarhashmi119@gmail.com",
       },
       subject,
       html: `
@@ -30,10 +30,8 @@ const sendMessage = async (req, res) => {
     await sgMail.send(msg);
     return res.status(200).json({ msg: "Message successfully send." });
   } catch (err) {
-    console.log(err);
-    return res
-      .status(500)
-      .json({ errors: [{ msg: "Internal server error." }] });
+    console.log("err --> ", JSON.stringify(err, undefined, 2));
+    return res.status(err.code).json({ errors: [{ msg: err.message }] });
   }
 };
 

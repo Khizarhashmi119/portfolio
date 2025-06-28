@@ -2,17 +2,17 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 
-const connectDB = require("./db");
-const projectsRoutes = require("./routes/api/v1/projects-routes");
 const authRoutes = require("./routes/api/v1/auth-routes");
-const skillRoutes = require("./routes/api/v1/skill-routes");
+const connectDB = require("./db");
 const contactRoutes = require("./routes/api/v1/contact-routes");
+const projectsRoutes = require("./routes/api/v1/projects-routes");
+const skillRoutes = require("./routes/api/v1/skill-routes");
 
 const app = express();
 
 dotenv.config();
 // Connect to database.
-connectDB();
+// connectDB();
 
 // Middlewares.
 app.use(cors());

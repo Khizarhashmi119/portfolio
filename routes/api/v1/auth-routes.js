@@ -8,7 +8,9 @@ const router = express.Router();
 router.post(
   "/login",
   [
-    check("email", "Email is required.").isEmail(),
+    check("email", "Email is required and should be valid.")
+      .notEmpty()
+      .isEmail(),
     check("password", "Password is required.").notEmpty(),
   ],
   login
